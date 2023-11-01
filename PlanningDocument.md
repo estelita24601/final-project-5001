@@ -2,7 +2,7 @@
 
 # Final Project Planning Document
 
-## Basic Goals
+## Basic Goals (must do)
 
 - [ ] Create a website using Flask
 
@@ -18,7 +18,7 @@
 
 - [ ] ability to edit/update task and all it's parameters
 
-## Further Goals
+## Further Goals (ideally would do)
 
 - [ ] button to mass delete all completed tasks
 
@@ -50,7 +50,7 @@
 
 - [ ] login or custom url for different users and their associated file
 
-## Stretch Goals
+## Stretch Goals (optional/for the future)
 
 - [ ] undo button (up to 5 changes to start?)
 
