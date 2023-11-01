@@ -48,11 +48,8 @@
   
   - [ ] whenever sorting by tag also sort by order of date in alphabetical order
 
-- [ ] 
 - [ ] save status of website to file that can be reloaded later (current list of tasks, status of said tasks etc)
-  
-  - [ ]   
-  - [ ] 
+
 - [ ] login or custom url for different users and their associated file
 
 
