@@ -18,8 +18,6 @@
 
 - [ ] ability to edit/update task and all it's parameters
 
-
-
 ## Further Goals
 
 - [ ] button to mass delete all completed tasks
@@ -52,8 +50,6 @@
 
 - [ ] login or custom url for different users and their associated file
 
-
-
 ## Stretch Goals
 
 - [ ] undo button (up to 5 changes to start?)
@@ -77,3 +73,52 @@
 - [ ] Custom tags for tasks
 
 - [ ] mobile friendly website version
+
+## Ideas/Brainstorming
+
+* class Task, each task is an instance of this class
+  
+  * methods to add name, date etc
+  
+  * tag parameter as a list? if no tags list is empty, otherwise allows multiple tags in the list
+  
+  * boolean True/False for if task is complete or if task is crossed out?
+
+* put all task objects in a list and have functions to sort the list
+  
+  * alphabetic_sort()
+  
+  * date_sort()
+  
+  * tag_sort()
+  
+  * completion_sort()
+
+* advanced sorting:
+  
+  * first sort by main feature
+  * as doing this put tasks with the same value for the main feature in their own mini lists
+  * then run the other sort functions on those mini lists
+  * then put it all back together somehow
+
+* Overall sorting:
+  
+  * create new list with items in new order to replace old list or is that too expensive?
+
+* possible idea: Make sure File 1-3 work first before doing File 4
+  
+  * **FILE 1:** create back end first and just have it process/output tasks in their raw form
+  
+  * **FILE 2:** intermediary between File 1 and File 3 and 4. Takes user interaction information from 3/4 and uses that to decide what functions to call from File 1. Then takes output from File 1 and gives it to 3/4 so they can display it to user.
+  
+  * **FILE 3:** text interface. Print to console and user types to interact
+  
+  * **FILE 4:** file for the website
+
+* User errors to account for:
+  
+  * empty task name
+  
+  * incorrect date format
+  
+  * warn them with GUI and don't let them click add/save until input is acceptable?
