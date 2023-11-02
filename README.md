@@ -75,12 +75,23 @@
 - [ ] mobile friendly website version
 
 ## Ideas/Brainstorming
+* possible idea: Make sure File 1-3 work first before doing File 4
+  
+  * **FILE 1:** create back end first and just have it process/output tasks in their raw form
+  
+  * **FILE 2:** intermediary between File 1 and File 3 and 4. Takes user interaction information from 3/4 and uses that to decide what functions to call from File 1. Then takes output from File 1 and gives it to 3/4 so they can display it to user.
+  
+  * **FILE 3:** text interface. Print to console and user types to interact
+  
+  * **FILE 4:** website with GUI
+  * Is there a way to create a library of global variables for all 4 files? could use this to standardize communication with File 2
+    * ex if user clicks a button then file 4 sends the same command to file 2 as file 3 would send if the user typed the correct thing, then won't need to change file 2 when switching from text interface to GUI
 
 * class Task, each task is an instance of this class
   
   * methods to add name, date etc
   
-  * tag parameter as a list? if no tags list is empty, otherwise allows multiple tags in the list
+  * have tag parameter be a list? if no tags list is empty, otherwise allows multiple tags in the list
   
   * boolean True/False for if task is complete or if task is crossed out?
 
@@ -100,21 +111,12 @@
   * as doing this put tasks with the same value for the main feature in their own mini lists
   * then run the other sort functions on those mini lists
   * then put it all back together somehow
+  * helper function(s) to make mini lists and to merge them back into one list
 
 * Overall sorting:
   
   * create new list with items in new order to replace old list or is that too expensive?
-
-* possible idea: Make sure File 1-3 work first before doing File 4
   
-  * **FILE 1:** create back end first and just have it process/output tasks in their raw form
-  
-  * **FILE 2:** intermediary between File 1 and File 3 and 4. Takes user interaction information from 3/4 and uses that to decide what functions to call from File 1. Then takes output from File 1 and gives it to 3/4 so they can display it to user.
-  
-  * **FILE 3:** text interface. Print to console and user types to interact
-  
-  * **FILE 4:** file for the website
-
 * User errors to account for:
   
   * empty task name
