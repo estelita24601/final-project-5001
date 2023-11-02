@@ -1,4 +1,4 @@
-# CS 5001 Final Project
+# CS 5001 Final Project Planning
 * Estelita Chen
 * Fall 2023
 
