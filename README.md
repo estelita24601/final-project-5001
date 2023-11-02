@@ -75,7 +75,7 @@
 - [ ] mobile friendly website version
 
 ## Ideas/Brainstorming
-* possible idea: Make sure File 1-3 work first before doing File 4
+possible idea: Make sure File 1-3 work first before doing File 4
   
   * **FILE 1:** create back end first and just have it process/output tasks in their raw form
   
@@ -87,7 +87,7 @@
   * Is there a way to create a library of global variables for all 4 files? could use this to standardize communication with File 2
     * ex if user clicks a button then file 4 sends the same command to file 2 as file 3 would send if the user typed the correct thing, then won't need to change file 2 when switching from text interface to GUI
 
-* class Task, each task is an instance of this class
+class Task, each task is an instance of this class
   
   * methods to add name, date etc
   
@@ -95,7 +95,7 @@
   
   * boolean True/False for if task is complete or if task is crossed out?
 
-* put all task objects in a list and have functions to sort the list
+put all task objects in a list and have functions to sort the list
   
   * alphabetic_sort()
   
@@ -105,7 +105,7 @@
   
   * completion_sort()
 
-* advanced sorting:
+advanced sorting:
   
   * first sort by main feature
   * as doing this put tasks with the same value for the main feature in their own mini lists
@@ -113,11 +113,11 @@
   * then put it all back together somehow
   * helper function(s) to make mini lists and to merge them back into one list
 
-* Overall sorting:
+Overall sorting:
   
   * create new list with items in new order to replace old list or is that too expensive?
   
-* User errors to account for:
+User errors to account for:
   
   * empty task name
   
