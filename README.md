@@ -1,6 +1,6 @@
-# 
-
-# Final Project Planning Document
+# CS 5001 Final Project
+* Estelita Chen
+* Fall 2023
 
 ## Basic Goals (must do)
 
