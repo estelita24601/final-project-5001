@@ -26,19 +26,19 @@
     
     * int 2023
 
-* **tag_list (optional)**
+* **tag (optional)**
   
-  * list of strings ["School", "Math"]
+  * string "School"
 
 #### Methods:
 
 * **get_attribute**
   
-  * for name, date, tag_list and completion_status
+  * for name, date, tag and completion_status
 
 * **change_attribute**
   
-  * for name, date, tag_list and completion_status
+  * for name, date, tag and completion_status
   
   * <u>will only accept valid format, otherwise raise error</u>
 
@@ -74,7 +74,12 @@
   
   - Ex. one sublist for tasks in November, another sublist for tasks in December. Return one combined list made of the two lists in correct order (november list first then december list)
   
-  - make general enough so it works on more than just months
+  - make general enough so it works on more than just months/days
+
+- sub_list_creator() ???
+  
+  - helper function that splits a list into sub lists, one sublist for each value of the given attribute. ex one list for all items with date = [11, 3, 2023], and another for all items with date = [11, 5, 2023]
+  - but general enough to work on date and tags
 
 # Issues/Questions Need to Deal With
 
