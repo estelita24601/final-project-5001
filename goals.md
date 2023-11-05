@@ -55,6 +55,8 @@
 
 * [ ] undo button (up to 5 changes to start?)
 
+- [ ] weekly view and daily view
+
 * [ ] select multiple tasks to give them all the same tag or remove same tag
 
 * [ ] select multiple tasks to give them all the same due date
