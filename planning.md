@@ -1,11 +1,5 @@
 # Issues/Questions Need to Deal With
 
-* User Errors
-  * invalid date format
-  * empty task name, or maybe task name with no letters
-  * non-existent tag/label
-  * maybe handle by displaying warning on GUI and not allowing them to hit submit/save until input is valid?
-
 * is Figma to figure out GUI necessary or not? maybe just draw on paper
 
 * is it worth it to also make a console interface before making the website?
@@ -74,8 +68,7 @@
 
 # Brainstorming
 
-possible idea: Make sure File 1-3 work first before doing File 4
-
+possible idea: Make sure File 1-3 work first before doing File 4?
 * **FILE 1:** my custom class(es) + methods that will process and output data
 
 * **FILE 2:** intermediary between File 1 and File 3 and 4. Takes user interaction information from 3/4 and uses that to decide what functions to call from File 1. Then takes output from File 1 and gives it to 3/4 so they can display it to user.
@@ -84,8 +77,13 @@ possible idea: Make sure File 1-3 work first before doing File 4
 
 * **FILE 4:** website with GUI
 
-advanced sorting:
+Dealing with User Errors
+  * invalid date format
+  * empty task name, or maybe task name with no letters
+  * non-existent tag/label
+  * maybe handle by displaying warning on GUI and not allowing them to hit submit/save until input is valid?
 
+advanced sorting:
 * first sort by main feature
 * as doing this put tasks with the same value for the main feature in their own mini lists
 * then run the other sort functions on those mini-lists
@@ -93,5 +91,4 @@ advanced sorting:
 * helper function(s) to make mini lists and to merge them back into one list
 
 Overall sorting:
-
 * create new list with items in new order to replace old list or is that too expensive?
