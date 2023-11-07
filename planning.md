@@ -1,3 +1,16 @@
+# Issues/Questions Need to Deal With
+
+* User Errors
+  * invalid date format
+  * empty task name, or maybe task name with no letters
+  * non-existent tag/label
+
+* is Figma to figure out GUI necessary or not? maybe just draw on paper
+
+* is it worth it to also make a console interface before making the website?
+    * Is there a way to create a library of global variables for all 4 files? could use this to standardize communication with File 2
+      - ex if the user clicks a button then the website sends the same command to the backend as the console interface would send if the user typed the correct thing, then won't need to change backend when switching from text interface to GUI
+  
 # class Task
 
 #### Attributes:
@@ -81,17 +94,6 @@
   - helper function that splits a list into sub lists, one sublist for each value of the given attribute. ex one list for all items with date = [11, 3, 2023], and another for all items with date = [11, 5, 2023]
   - but general enough to work on date and tags
 
-# Issues/Questions Need to Deal With
-
-* User Error
-  
-  * invalid date, name, tag
-
-* Is there a way to create a library of global variables for all 4 files? could use this to standardize communication with File 2
-  
-  - ex if user clicks a button then file 4 sends the same command to file 2 as file 3 would send if the user typed the correct thing, then won't need to change file 2 when switching from text interface to GUI
-
-* figma to figure out GUI or not necessary?
 
 # Brainstorming
 
