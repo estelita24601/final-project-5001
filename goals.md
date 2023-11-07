@@ -17,21 +17,19 @@
 
 * [ ] option to delete individual tasks
 
-* [ ] ability to edit/update task and all it's parameters
+* [ ] ability to edit/update task and all of its parameters
 
 ## Further Goals (ideally would do)
 
 * [ ] button to mass delete all completed tasks
 
-* [ ] option to add and edit tags to tasks in order to categorize them
+* [ ] option to add and edit labels/tags for each task
 
 * [ ] editable due date parameter for tasks
-
-* [ ] color code based on days until due date
   
   **Sorting Tasks**
   
-  * [ ] automatically arrange task list so completed items are on the bottom
+  * [ ] arrange task list so completed items are on the bottom
   
   * [ ] alphabetically by task name
   
@@ -55,7 +53,9 @@
 
 * [ ] undo button (up to 5 changes to start?)
 
-- [ ] weekly view and daily view
+* [ ] color code based on days until due date
+
+* [ ] weekly view and daily view
 
 * [ ] select multiple tasks to give them all the same tag or remove same tag
 
@@ -63,7 +63,7 @@
 
 * [ ] Option to only show tasks with a certain tag (either with filter button or separate tab or something else)
 
-* [ ] Option to only show tasks with multiple specific tags (ex only show tasks labelled financial and urgent)
+* [ ] Option to only show tasks with multiple specific tags (ex only show tasks labeled financial and urgent)
 
 * [ ] field for additional task details
 
@@ -71,7 +71,7 @@
 
 * [ ] duplicate task button (like google calendar creates duplicate but lets you edit before saving)
 
-* [ ] different color themes
+* [ ] different color themes / color coding?
 
 * [ ] Custom tags for tasks
 
