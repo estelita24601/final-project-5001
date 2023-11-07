@@ -1,7 +1,4 @@
-# CS 5001 Final Project Goals
-
-* Estelita Chen
-* Fall 2023
+# Final Project Goals
 
 ## Basic Goals (must do)
 * [ ] Display a list of tasks on the website
