@@ -12,19 +12,7 @@
 
 * **date (optional)**
   
-  * list of attributes [self.month, self.day, self.year]
-  
-  * *month(required for date)*
-    
-    * int 4
-  
-  * *day (required for date)*
-    
-    * int 25
-  
-  * *year (required for date)*
-    
-    * int 2023
+  * instance of date class (<https://docs.python.org/3/library/datetime.html>)
 
 * **tag (optional)**
   

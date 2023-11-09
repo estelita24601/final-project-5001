@@ -61,6 +61,8 @@
 
 * [ ] select multiple tasks to give them all the same due date
 
+* [ ] replace save file with a data base (<https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/>)
+
 * [ ] Option to only show tasks with a certain tag (either with filter button or separate tab or something else)
 
 * [ ] Option to only show tasks with multiple specific tags (ex only show tasks labelled financial and urgent)
