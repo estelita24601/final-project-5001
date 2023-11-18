@@ -1,7 +1,7 @@
 Re-align the deflector array
 Plot course for home
 Clear the transporter buffer
-Re-calibrate the intertial dampeners
+Re-calibrate the inertial dampeners
 Scan for tachyon particles
 Fix the replicator in the mess hall
 
