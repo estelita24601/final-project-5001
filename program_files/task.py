@@ -60,6 +60,13 @@ class Task:
 
     # QUESTION: should I let the date object handle errors for me?
     def change_date(self, year, month, day):
+        """change the date task is due
+
+        Args:
+            year (int): year as an integer with 4 digits
+            month (int): month as an integer with no leading 0
+            day (int): day as an integer with no leading 0
+        """
         try:
             self.date = date(year, month, day)
         except e as TypeError:
