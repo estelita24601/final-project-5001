@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{background-color:rgb(212, 210, 210); text-align:center}
+        </style>
+    </head>
+
+    <body>
+        <h1>Voyager Crew Task List</h1>
+        <menu>
+            {% for task in task_list %}
+                <div>
+                    <input type="checkbox" name=task value={{task}}/>
+                    <label for="task">{{task}}</label>
+                </div>
+            {% endfor %}
+
+        <menu>
+
+    </body>
+
+</html>
