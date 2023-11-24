@@ -69,7 +69,7 @@ class Task:
         """
         try:
             self.date = date(year, month, day)
-        except e as TypeError:
+        except TypeError as e:
             print(e)
 
     def change_completion_status(self, new_status: bool) -> None:
