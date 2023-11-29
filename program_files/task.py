@@ -2,23 +2,24 @@ from datetime import date
 
 
 class Task:
-    def __init__(self, name, is_complete=False, year=None, month=None, day=None) -> None:
+    def __init__(self, name, is_complete=False, due_date: tuple[int, int, int] = (0, 0, 0)) -> None:
         """
         Args:
             name (str): short description of the task
             is_complete (bool, optional): Whether the task is complete or not. Defaults to False.
+            date (tuple, optional): integers for year, month and date in the correct format for a date object from the datetime module. No leading zeroes and numbers in range of the gregorian calendar.
 
-            # if one or more of the following are not provided task will not have a date
-            year (int, optional): 4-digit number for the year. Defaults to None.
-            month (int, optional): 1 or 2-digit number for the month. Defaults to None.
-            day (int, optional): 1 or 2-digit number for the day. Defaults to None.
         """
         self.name: str = name
         self.is_complete = is_complete
 
-        if year and month and day:  # make sure we have everything needed to create a date object
+        # if we don't have the default tuple then try to make a date object
+        if due_date != (0, 0, 0):
+            year = int(due_date[0])
+            month = int(due_date[1])
+            day = int(due_date[2])
             self.date = date(year, month, day)
-        else:   # if all three values weren't provided our task doesn't have a date
+        else:
             self.date = None
 
     def __str__(self):
@@ -59,6 +60,7 @@ class Task:
         self.name = new_name
 
     # QUESTION: should I let the date object handle errors for me?
+    # possible errors: not an integer, leading 0, numbers out of range, didn't provide all three
     def change_date(self, year, month, day):
         """change the date task is due
 
@@ -70,7 +72,9 @@ class Task:
         try:
             self.date = date(year, month, day)
         except TypeError as e:
-            print(e)
+            print("unable to change date due to", e)
+        except ValueError as e:
+            print("unable to change date due to", e)
 
     def change_completion_status(self, new_status: bool) -> None:
         """updates whether the task is complete or not
@@ -79,6 +83,7 @@ class Task:
             new_status (bool): True for completed tasks and False for incompleted tasks
         """
         if not isinstance(new_status, bool):
-            raise TypeError(self, "completion status must be boolean True or False")
+            raise TypeError(
+                self, "completion status must be boolean True or False")
         else:
             self.is_complete = new_status
