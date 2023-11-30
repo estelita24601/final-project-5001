@@ -41,7 +41,6 @@ class Task:
         """
         return self.is_complete
 
-    # QUESTION: Is it okay to return none when there is no date?
     def get_date(self):
         """if the task has a due date returns a date object for the due date
         otherwise returns None
@@ -116,4 +115,4 @@ def task_from_csv(csv_line:str):
 def date_conversion(date_string):
     if date_string == "None":
         return (0, 0, 0)
-    #FIXME: after I figure out how date-time info is returned then parse it into correct format
+    #FIXME: date_string will be in "YYYY-MM-DD" format either change task.date attribute or manipulate string into tuple of ints
