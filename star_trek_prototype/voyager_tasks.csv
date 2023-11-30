@@ -1,4 +1,3 @@
-name,is_complete,date
 Bypass the power relay, False, None
 Clear the transporter buffer, False, None
 Fix the internal sensors, False, None
