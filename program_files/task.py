@@ -76,6 +76,10 @@ class Task:
         except ValueError as e:
             print("unable to change date due to", e)
 
+    #FIXME: add docstring and create test
+    def remove_date(self) -> None:
+        self.date = None
+
     def change_completion_status(self, new_status: bool) -> None:
         """updates whether the task is complete or not
 
@@ -87,3 +91,29 @@ class Task:
                 self, "completion status must be boolean True or False")
         else:
             self.is_complete = new_status
+
+#FIXME: add docstring and create test
+def create_task_list(file_name: str) -> list[Task]:
+    task_list = []
+
+    with open(file_name, "r") as task_file:
+        for line in task_file:
+            current_task = task_from_csv(line)
+            task_list.append(current_task)
+    
+    return task_list
+
+#FIXME: add docstring and create test
+def task_from_csv(csv_line:str):
+    # csv_line = "name of task, False, None"
+    csv_line = csv_line.split(",")
+    name = csv_line[0]
+    is_complete = csv_line[1]
+    date = date_conversion(csv_line[2])
+    return Task(name, is_complete, date)
+
+#FIXME: add docstring and create test
+def date_conversion(date_string):
+    if date_string == "None":
+        return (0, 0, 0)
+    #FIXME: after I figure out how date-time info is returned then parse it into correct format
