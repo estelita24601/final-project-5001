@@ -10,12 +10,15 @@ def home():
     uss_voyager_template = my_environment.get_template("voyager_task_format.html")
 
     # read task names from file into a list
+    #TURN THIS INTO A FUNCTION IN ANOTHER MODULE
     uss_voyager_list = []
     with open("fake_task_names.txt", "r") as captains_log:
         for task in captains_log:
             task = task.title()
             uss_voyager_list.append(task)
 
+    # if user hit submit lets get that data and display it on another screen for testing purposes
+    # later we will process the data and re-render the template instead
     if request.method == "POST":
         form_data = request.form
         return redirect(url_for("test_form", my_data=form_data))
@@ -26,4 +29,4 @@ def home():
 
 @app.route("/testing<my_data>", methods=["POST", "GET"])
 def test_form(my_data):
-    return f"<h1>{my_data}</h1>"
+    return f"<p>{my_data}</p>"
