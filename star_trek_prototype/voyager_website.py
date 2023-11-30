@@ -12,7 +12,7 @@ def home():
     # read task names from file into a list
     #FIXME: TURN THIS INTO A FUNCTION IN ANOTHER MODULE
     uss_voyager_list = []
-    with open("fake_task_names.txt", "r") as captains_log:
+    with open("voyager_tasks.csv", "r") as captains_log:
         for task in captains_log:
             task = task.title()
             uss_voyager_list.append(task)
