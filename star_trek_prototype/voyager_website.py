@@ -10,7 +10,7 @@ def home():
     uss_voyager_template = my_environment.get_template("voyager_task_format.html")
 
     # read task names from file into a list
-    #TURN THIS INTO A FUNCTION IN ANOTHER MODULE
+    #FIXME: TURN THIS INTO A FUNCTION IN ANOTHER MODULE
     uss_voyager_list = []
     with open("fake_task_names.txt", "r") as captains_log:
         for task in captains_log:
