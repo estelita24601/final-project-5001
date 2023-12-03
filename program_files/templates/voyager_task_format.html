@@ -24,17 +24,17 @@
         <div>
             <!-- determine if checkbox will be checked -->
             {% if check_status == true %}
-            <input type="checkbox" name="{{name_value ~ "__" ~ task_id }" value="True" checked />
+            <input type="checkbox" name="{{name_value ~ '__' ~ task_id }}" value="True" checked />
             {% else %}
-            <input type="checkbox" name="{{name_value ~ "__" ~ task_id}}" value="True" />
+            <input type="checkbox" name="{{name_value ~ '__' ~ task_id}}" value="True" />
             {% endif %}
             <label for={{task_id}}>{{name_value}}</label>
 
             <!-- determine if date input will have pre-set date in it -->
             {% if date_value == None %}
-            <input type="date" name="{{name_value ~ "__" ~ task_id}}" />
+            <input type="date" name="{{name_value ~ '__' ~ task_id}}" />
             {% else %}
-            <input type="date" name="{{name_value ~ "__" ~ task_id}}" value="{{date_value}}" />
+            <input type="date" name="{{name_value ~ '__' ~ task_id}}" value="{{date_value}}" />
             {% endif %}
 
         </div>
