@@ -2,28 +2,28 @@ from datetime import date
 
 
 class Task:
-    def __init__(self, name, is_complete=False, due_date: tuple[int, int, int] = (0, 0, 0)) -> None:
+    def __init__(self, name, is_complete=False, due_date: str = None) -> None:
         """
-        Args:
-            name (str): short description of the task
-            is_complete (bool, optional): Whether the task is complete or not. Defaults to False.
-            date (tuple, optional): integers for year, month and date in the correct format for a date object from the datetime module. No leading zeroes and numbers in range of the gregorian calendar.
+        Args: name (str): short description of the task
+        is_complete (bool, optional): Whether the task is complete or not. Defaults to False.
+        date (str, optional): string in valid ISO format, defaults to None
 
         """
         self.name: str = name
         self.is_complete = is_complete
 
-        # if we don't have the default tuple then try to make a date object
-        if due_date != (0, 0, 0):
-            year = int(due_date[0])
-            month = int(due_date[1])
-            day = int(due_date[2])
-            self.date = date(year, month, day)
-        else:
+        if due_date is None or due_date == "None":
             self.date = None
+        else:
+            self.date = date.fromisoformat(due_date)
+
+        self.unique_id = id(self)
 
     def __str__(self):
-        output = f"{self.name:10} | {self.date:10} | {self.is_complete}"
+        return f"{self.unique_id:10} | {self.name:10} | {self.date:10} | {self.is_complete}"
+
+    def get_id(self):
+        return self.unique_id
 
     def get_name(self):
         """returns the name of the task
@@ -58,24 +58,15 @@ class Task:
             raise TypeError(self, "new name for the task must be a string")
         self.name = new_name
 
-    # QUESTION: should I let the date object handle errors for me?
-    # possible errors: not an integer, leading 0, numbers out of range, didn't provide all three
-    def change_date(self, year, month, day):
+    # FIXME: update docstring and corresponding test
+    def change_date(self, due_date: str):
         """change the date task is due
 
         Args:
-            year (int): year as an integer with 4 digits
-            month (int): month as an integer with no leading 0
-            day (int): day as an integer with no leading 0
+            #FIXME
         """
-        try:
-            self.date = date(year, month, day)
-        except TypeError as e:
-            print("unable to change date due to", e)
-        except ValueError as e:
-            print("unable to change date due to", e)
+        self.date = date.fromisoformat(due_date)
 
-    #FIXME: add docstring and create test
     def remove_date(self) -> None:
         self.date = None
 
@@ -83,7 +74,7 @@ class Task:
         """updates whether the task is complete or not
 
         Args:
-            new_status (bool): True for completed tasks and False for incompleted tasks
+            new_status (bool): True for completed tasks and False for incomplete tasks
         """
         if not isinstance(new_status, bool):
             raise TypeError(
@@ -91,28 +82,59 @@ class Task:
         else:
             self.is_complete = new_status
 
-#FIXME: add docstring and create test
-def create_task_list(file_name: str) -> list[Task]:
-    task_list = []
+    def mark_complete(self):
+        self.is_complete = True
 
-    with open(file_name, "r") as task_file:
-        for line in task_file:
-            current_task = task_from_csv(line)
-            task_list.append(current_task)
-    
-    return task_list
+    def mark_incomplete(self):
+        self.is_complete = False
 
-#FIXME: add docstring and create test
-def task_from_csv(csv_line:str):
-    # csv_line = "name of task, False, None"
-    csv_line = csv_line.split(",")
-    name = csv_line[0]
-    is_complete = csv_line[1]
-    date = date_conversion(csv_line[2])
-    return Task(name, is_complete, date)
+    def to_csv(self) -> str:
+        return ",".join((self.unique_id, self.name, self.is_complete, self.date))
 
-#FIXME: add docstring and create test
-def date_conversion(date_string):
-    if date_string == "None":
-        return (0, 0, 0)
-    #FIXME: date_string will be in "YYYY-MM-DD" format either change task.date attribute or manipulate string into tuple of ints
+
+class TaskList:
+    def __init__(self, file_name: str):
+        task_list = []
+
+        with open(file_name, "r") as task_file:
+            for line in task_file:
+                current_task = self.task_from_csv(line)
+                task_list.append(current_task)
+
+        self.task_dictionary = self.create_obj_dict(task_list)
+
+    def task_from_csv(self, csv_line: str) -> Task:
+        # csv_line = "name of task, False, None"
+        csv_list = csv_line.split(",")
+        name = csv_list[0].strip()
+        is_complete = bool(csv_list[1])
+        due_date = csv_list[2].strip()
+        if due_date == "None":
+            due_date = None
+        return Task(name, is_complete, due_date)
+
+    def update_csv(self, file_name: str):
+        with open(file_name, "w") as csv_file:
+            for line in self.create_csv_list():
+                csv_file.write(line)
+                csv_file.write("\n")
+
+    def create_csv_list(self) -> list:
+        return [task.to_csv() for task in self.task_dictionary.values()]
+
+    def create_obj_dict(self, task_list) -> dict:
+        task_dict = {}
+
+        for task in task_list:
+            task_dict[task.get_id()] = task
+
+        return task_dict
+
+    def remove_task(self, task_id):
+        self.task_dictionary.pop(task_id)
+
+    def add_task(self, task_obj):
+        self.task_dictionary[task_obj.get_id()] = task_obj
+
+    def get_task(self, task_id):
+        return self.task_dictionary[task_id]
