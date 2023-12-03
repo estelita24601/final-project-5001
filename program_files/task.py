@@ -35,9 +35,6 @@ class Task:
 
     def get_completion_status(self) -> bool:
         """returns True if the task is complete and False if it is incomplete
-
-        Returns:
-            self.is_complete(bool)
         """
         return self.is_complete
 
@@ -85,7 +82,7 @@ class Task:
         #for testing purposes only
         self.unique_id = new_id
 
-class TaskList:
+class TaskCollection:
     def __init__(self, file_name: str):
         task_list = []
         with open(file_name, "r") as task_file:
@@ -95,14 +92,19 @@ class TaskList:
 
         self.task_dictionary = self.create_obj_dict(task_list)
 
+    #FIXME: boolean always being true
     def task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
         name = csv_list[1].strip()
-        is_complete = bool(csv_list[2])
+
+        is_complete = csv_list[2]
+        if is_complete == "False": is_complete = False
+        else: is_complete = True
+
         due_date = csv_list[3].strip()
-        if due_date == "None":
-            due_date = None
+        if due_date == "None": due_date = None
+
         return Task(name, is_complete, due_date)
 
     def update_csv(self, file_name: str):
@@ -122,10 +124,13 @@ class TaskList:
 
         return task_dict
 
-    def remove_task(self, task_id):
+    def get_task_dictionary(self) -> dict:
+        return self.task_dictionary
+
+    def remove_task(self, task_id) -> None:
         self.task_dictionary.pop(task_id)
 
-    def add_task(self, task_obj):
+    def add_task(self, task_obj) -> None:
         self.task_dictionary[task_obj.get_id()] = task_obj
 
     def get_task(self, task_id):

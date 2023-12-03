@@ -13,8 +13,8 @@ def home():
         "voyager_task_format.html")
 
     # read task names from file into a list
-    voyager_tasks = TaskList("voyager_tasks.csv")
-    task_names = voyager_tasks.get_names()
+    collection_of_tasks = TaskCollection("test_input_data.csv")
+    task_dictionary = collection_of_tasks.get_task_dictionary()
 
     # if user hit submit lets get that data and display it on another screen for testing purposes
     # later we will process the data and re-render the template instead
@@ -26,8 +26,8 @@ def home():
         return redirect(url_for("test_form", my_data=form_data))
         # FIXME: remove when done with testing
 
-    # render the template with the list of tasks from the file
-    return uss_voyager_template.render(task_list=task_names)
+    # render the template with the task info from the file
+    return uss_voyager_template.render(task_data=task_dictionary)
 
 
 @app.route("/testing<my_data>", methods=["POST", "GET"])
