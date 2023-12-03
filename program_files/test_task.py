@@ -81,15 +81,7 @@ class MyTestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.object_five.change_date(2023-12-20)  # wrong data type
 
-    def test_change_completion_status(self):
-        self.object_five.change_completion_status(True)
-        self.assertEqual(self.object_five.get_completion_status(), True)
 
-        self.object_five.change_completion_status(True)
-        self.assertEqual(self.object_five.get_completion_status(), True)
-
-        self.object_five.change_completion_status(True)
-        self.assertEqual(self.object_five.get_completion_status(), True)
 
 
 if __name__ == '__main__':

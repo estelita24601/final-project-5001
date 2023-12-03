@@ -70,18 +70,6 @@ class Task:
     def remove_date(self) -> None:
         self.date = None
 
-    def change_completion_status(self, new_status: bool) -> None:
-        """updates whether the task is complete or not
-
-        Args:
-            new_status (bool): True for completed tasks and False for incomplete tasks
-        """
-        if not isinstance(new_status, bool):
-            raise TypeError(
-                self, "completion status must be boolean True or False")
-        else:
-            self.is_complete = new_status
-
     def mark_complete(self):
         self.is_complete = True
 
