@@ -77,7 +77,10 @@ class Task:
         self.is_complete = False
 
     def to_csv(self) -> str:
-        return ",".join((self.unique_id, self.name, self.is_complete, self.date))
+        unique_id = str(self.unique_id)
+        is_complete = str(self.is_complete)
+        due_date = self.date.isoformat()
+        return ",".join((unique_id, self.name, is_complete, due_date))
 
 
 class TaskList:
@@ -94,10 +97,10 @@ class TaskList:
     def task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
-        name = csv_list[0].strip()
-        is_complete = bool(csv_list[1])
-        due_date = csv_list[2].strip()
-        if due_date == "None":
+        name = csv_list[1].strip()
+        is_complete = bool(csv_list[2])
+        due_date = csv_list[3].strip()
+        if due_date == "None" or due_date == '':
             due_date = None
         return Task(name, is_complete, due_date)
 
