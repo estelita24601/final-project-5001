@@ -60,11 +60,7 @@ class Task:
 
     # FIXME: update docstring and corresponding test
     def change_date(self, due_date: str):
-        """change the date task is due
-
-        Args:
-            #FIXME
-        """
+        """change the date task is due"""
         self.date = date.fromisoformat(due_date)
 
     def remove_date(self) -> None:
@@ -82,11 +78,13 @@ class Task:
         due_date = self.date.isoformat()
         return ",".join((unique_id, self.name, is_complete, due_date))
 
+    def change_id(self, new_id:int) -> None:
+        #for testing purposes only
+        self.unique_id = new_id
 
 class TaskList:
     def __init__(self, file_name: str):
         task_list = []
-
         with open(file_name, "r") as task_file:
             for line in task_file:
                 current_task = self.task_from_csv(line)
@@ -94,13 +92,13 @@ class TaskList:
 
         self.task_dictionary = self.create_obj_dict(task_list)
 
-    def task_from_csv(self, csv_line: str) -> Task:
+    def __task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
         name = csv_list[1].strip()
         is_complete = bool(csv_list[2])
         due_date = csv_list[3].strip()
-        if due_date == "None" or due_date == '':
+        if due_date == "None":
             due_date = None
         return Task(name, is_complete, due_date)
 
@@ -110,10 +108,10 @@ class TaskList:
                 csv_file.write(line)
                 csv_file.write("\n")
 
-    def create_csv_list(self) -> list:
+    def __create_csv_list(self) -> list:
         return [task.to_csv() for task in self.task_dictionary.values()]
 
-    def create_obj_dict(self, task_list) -> dict:
+    def __create_obj_dict(self, task_list) -> dict:
         task_dict = {}
 
         for task in task_list:

@@ -1,5 +1,5 @@
 import unittest
-from task import Task
+from task import Task, TaskList
 from datetime import date
 
 
@@ -108,10 +108,25 @@ class MyTaskTester(unittest.TestCase):
 class MyTaskListTester(unittest.TestCase):
     input_file = "test_input_data.csv"
     output_file = "test_output_data.csv"
+    task_list = TaskList(input_file)
 
-    def test_init(self):
-        pass
+    def test_task_from_csv(self):
+        input_csv = "id_number,1st task,True,2023-11-03"
+        my_task = self.task_list.task_from_csv(input_csv)
+        self.assertIsInstance(my_task, Task)
+        self.assertEqual(my_task.get_name(),"1st task")
+        self.assertEqual(my_task.get_completion_status(),True)
+        self.assertEqual(my_task.get_date(),date.fromisoformat("2023-11-03"))
 
+    def test_tasks_inside_task_list(self):
+        test_task = Task("New Task!")
+        test_task.change_id(1234)
+        self.task_list.add_task(test_task)
+
+
+
+    def test_update_csv(self):
+        self.task_list.update_csv(self.output_file)
 
 if __name__ == '__main__':
     unittest.main(verbosity=4)
