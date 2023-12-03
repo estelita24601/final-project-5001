@@ -75,7 +75,10 @@ class Task:
     def to_csv(self) -> str:
         unique_id = str(self.unique_id)
         is_complete = str(self.is_complete)
-        due_date = self.date.isoformat()
+        try:
+            due_date = self.date.isoformat()
+        except AttributeError:
+            due_date = "None"
         return ",".join((unique_id, self.name, is_complete, due_date))
 
     def change_id(self, new_id:int) -> None:
@@ -92,7 +95,7 @@ class TaskList:
 
         self.task_dictionary = self.create_obj_dict(task_list)
 
-    def __task_from_csv(self, csv_line: str) -> Task:
+    def task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
         name = csv_list[1].strip()
@@ -108,10 +111,10 @@ class TaskList:
                 csv_file.write(line)
                 csv_file.write("\n")
 
-    def __create_csv_list(self) -> list:
+    def create_csv_list(self) -> list:
         return [task.to_csv() for task in self.task_dictionary.values()]
 
-    def __create_obj_dict(self, task_list) -> dict:
+    def create_obj_dict(self, task_list) -> dict:
         task_dict = {}
 
         for task in task_list:

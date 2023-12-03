@@ -119,13 +119,24 @@ class MyTaskListTester(unittest.TestCase):
         self.assertEqual(my_task.get_date(),date.fromisoformat("2023-11-03"))
 
     def test_tasks_inside_task_list(self):
-        test_task = Task("New Task!")
-        test_task.change_id(1234)
-        self.task_list.add_task(test_task)
+        test_one = Task("Temp Task")
+        test_one.change_id(1234)
+        self.assertEqual(test_one.get_id(), 1234)
 
+        self.task_list.add_task(test_one)
+        self.assertEqual(len(self.task_list.task_dictionary), 4)
 
+        test_two = self.task_list.get_task(1234)
+        self.assertEqual(test_two, test_one)
 
-    def test_update_csv(self):
+        self.task_list.remove_task(1234)
+        self.assertEqual(len(self.task_list.task_dictionary), 3)
+
+        test_three = Task("New Task!!")
+        test_three.change_id(24601)
+        self.task_list.add_task(test_three)
+        self.assertEqual(len(self.task_list.task_dictionary), 4)
+
         self.task_list.update_csv(self.output_file)
 
 if __name__ == '__main__':
