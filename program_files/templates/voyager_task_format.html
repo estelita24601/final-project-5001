@@ -5,7 +5,7 @@
 <head>
     <style>
         body {
-            background-color: rgb(227, 227, 227)
+            background-color: rgb(233, 252, 255)
         }
     </style>
 </head>
@@ -36,12 +36,17 @@
             {% else %}
             <input type="date" name="{{name_value ~ '__' ~ task_id}}" value="{{date_value}}" />
             {% endif %}
+            
+            <input type="submit" value="edit" />
+            <input type="submit" value="delete" />
 
         </div>
         {% endfor %}
 
+        <br><br>
+        
         <!-- submit button to send post request -->
-        <input type="submit" value="submit" />
+        <input type="submit" value="save" />
     </form>
 
 </body>

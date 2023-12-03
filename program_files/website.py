@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from jinja2 import Environment, FileSystemLoader
-from task import *
+from task import TaskCollection
 
 app = Flask(__name__)
 
@@ -9,8 +9,8 @@ app = Flask(__name__)
 def home():
     # set up so template can be used
     my_environment = Environment(loader=FileSystemLoader("templates/"))
-    uss_voyager_template = my_environment.get_template(
-        "voyager_task_format.html")
+    task_list_template = my_environment.get_template(
+        "home.html")
 
     # read task names from file into a list
     collection_of_tasks = TaskCollection("test_input_data.csv")
@@ -20,14 +20,19 @@ def home():
     # later we will process the data and re-render the template instead
     if request.method == "POST":
         form_data = request.form
-        # FIXME: use this to update voyager_tasks.csv
-        # FIXME: then update task_names so website renders
+        # user_action = form_data.get('name')
+        # if user_action in ("checkbox", "delete task"):
+        #     pass
+        #     #FIXME: stay on same page, update csv file, then re-render the page
+        # elif user_action == "edit":
+        #     pass
+        #     #FIXME: redirect to a different page that has a diff template for user input
 
         return redirect(url_for("test_form", my_data=form_data))
         # FIXME: remove when done with testing
 
     # render the template with the task info from the file
-    return uss_voyager_template.render(task_data=task_dictionary)
+    return task_list_template.render(task_data=task_dictionary)
 
 
 @app.route("/testing<my_data>", methods=["POST", "GET"])

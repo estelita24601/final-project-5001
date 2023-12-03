@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: rgb(222, 244, 248)
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <h1>To-Do List</h1>
+    
+    {% block task_loop %}{% endblock %}
+
+</body>
+
+</html>
