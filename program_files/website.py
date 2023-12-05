@@ -36,7 +36,7 @@ def test_form(my_data):
 # FIXME: the entire thing
 
 
-@app.route("/edi<task_id>", methods=['POST', 'GET'])
+@app.route("/edit<task_id>", methods=['POST', 'GET'])
 def edit_task(task_id):
     my_environment = Environment(loader=FileSystemLoader("templates/"))
     task_editor_template = my_environment.get_template(
