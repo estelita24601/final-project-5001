@@ -26,14 +26,14 @@ def home():
 
 # FIXME: the entire thing
 @app.route('/edit/<post_dict>', methods=['POST', 'GET'])
-def edit_task(post_dict):
-    task_editor_template = my_environment.get_template(
-        "edit_task.html")
-
-    for key in post_dict.keys():
-        task_id = int(key)
-        task_to_edit = master_task_collection.get_task(task_id)
+def edit_task(post_dict: dict):
+    #even though argument is a dictionary somehow its a string here
+    #so going to turn the string into what I need
+    task_id = post_dict.split("'")
+    task_id = int(task_id[1])
+    task_to_edit = master_task_collection.get_task(task_id)
     
+    task_editor_template = my_environment.get_template("edit_task.html")
     return task_editor_template.render(task=task_to_edit)
 
 
