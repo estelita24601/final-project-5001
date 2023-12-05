@@ -73,6 +73,11 @@ class Task:
 
     def mark_incomplete(self):
         self.is_complete = False
+    
+    def change_completion(self) -> None:
+        self.is_complete = not self.is_complete
+
+
 
     def to_csv(self) -> str:
         unique_id = str(self.unique_id)
@@ -96,6 +101,7 @@ class TaskCollection:
                 task_list.append(current_task)
 
         self.task_dictionary = self.create_obj_dict(task_list)
+        self.update_csv(file_name) # put unique id for each object into csv
 
     #FIXME: boolean always being true
     def task_from_csv(self, csv_line: str) -> Task:
@@ -132,11 +138,12 @@ class TaskCollection:
     def get_task_dictionary(self) -> dict:
         return self.task_dictionary
 
-    def remove_task(self, task_id) -> None:
+    def delete_task(self, task_id) -> None:
         self.task_dictionary.pop(task_id)
 
     def add_task(self, task_obj) -> None:
         self.task_dictionary[task_obj.get_id()] = task_obj
 
-    def get_task(self, task_id):
+    def get_task(self, task_id) -> Task:
+        print(self.task_dictionary)
         return self.task_dictionary[task_id]

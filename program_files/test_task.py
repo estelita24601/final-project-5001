@@ -111,15 +111,15 @@ class MyTaskCollectionTester(unittest.TestCase):
     task_list = TaskCollection(input_file)
 
     def test_task_from_csv(self):
-        input_csv = "id_number,1st task,True,2023-11-03"
-        my_task = self.task_list.task_from_csv(input_csv)
+        test_csv_line = "id_number,1st task,True,2023-11-03"
+        my_task = self.task_list.task_from_csv(test_csv_line)
         self.assertIsInstance(my_task, Task)
         self.assertEqual(my_task.get_name(),"1st task")
         self.assertEqual(my_task.get_completion_status(),True)
         self.assertEqual(my_task.get_date(),date.fromisoformat("2023-11-03"))
 
-        input_csv = "id_number,2nd task,False,None"
-        my_task = self.task_list.task_from_csv(input_csv)
+        test_csv_line = "id_number,2nd task,False,None"
+        my_task = self.task_list.task_from_csv(test_csv_line)
         self.assertIsInstance(my_task, Task)
         self.assertEqual(my_task.get_name(), "2nd task")
         self.assertEqual(my_task.get_completion_status(), False)
@@ -136,7 +136,7 @@ class MyTaskCollectionTester(unittest.TestCase):
         test_two = self.task_list.get_task(1234)
         self.assertEqual(test_two, test_one)
 
-        self.task_list.remove_task(1234)
+        self.task_list.delete_task(1234)
         self.assertEqual(len(self.task_list.task_dictionary), 3)
 
         test_three = Task("New Task!!")

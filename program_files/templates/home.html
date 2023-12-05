@@ -14,15 +14,15 @@
         {% set date = task_obj.get_display_date() %}
 
         <div>
-        <form action="#" method="post" name="checkbox">
+        <form action="#" method="post" name="checkbox" onclick="submit();">
             <!-- determine if checkbox will load already checked -->
             {% if check_status == true %}
                 <input type="checkbox" name="{{task_id}}" value="True" checked />
             {% else %}
                 <input type="checkbox" name="{{task_id}}" value="True" />
             {% endif %}
-                    
             <label for="{{task_id}}">{{name_value}}   {{date}}</label>
+            <input type="hidden" name="{{task_id}}" value="False"/>
             
         </form>
         
@@ -36,11 +36,6 @@
         </div>
         
     {% endfor %}
-    <p>-</p>
-    <p>-</p>
-    <form action="#" method="post" name="save">
-        <input type="submit" value="save"/>
-    </form>
 
 {% endblock %}
 
