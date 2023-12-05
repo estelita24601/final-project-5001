@@ -19,8 +19,8 @@ class Task:
 
         self.unique_id = id(self)
 
-    def __str__(self):
-        return f"{self.unique_id:10} | {self.name:10} | {self.date:10} | {self.is_complete}"
+    # def __str__(self):
+    #     return f"{self.unique_id:10} | {self.name:10} | {self.date:10} | {self.is_complete}"
 
     def get_id(self):
         return self.unique_id
@@ -60,9 +60,8 @@ class Task:
             raise TypeError(self, "new name for the task must be a string")
         self.name = new_name
 
-    # FIXME: update docstring and corresponding test
     def change_date(self, due_date: str):
-        """change the date task is due"""
+        """UPDATE ME!!!!!! change the date task is due"""
         self.date = date.fromisoformat(due_date)
 
     def remove_date(self) -> None:
@@ -76,8 +75,6 @@ class Task:
     
     def change_completion(self) -> None:
         self.is_complete = not self.is_complete
-
-
 
     def to_csv(self) -> str:
         unique_id = str(self.unique_id)
@@ -103,7 +100,6 @@ class TaskCollection:
         self.task_dictionary = self.create_obj_dict(task_list)
         self.update_csv(file_name) # put unique id for each object into csv
 
-    #FIXME: boolean always being true
     def task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
@@ -119,6 +115,7 @@ class TaskCollection:
         return Task(name, is_complete, due_date)
 
     def update_csv(self, file_name: str):
+        print("---UPDATING CSV FILE")
         with open(file_name, "w") as csv_file:
             for line in self.create_csv_list():
                 csv_file.write(line)
@@ -145,5 +142,4 @@ class TaskCollection:
         self.task_dictionary[task_obj.get_id()] = task_obj
 
     def get_task(self, task_id) -> Task:
-        print(self.task_dictionary)
         return self.task_dictionary[task_id]
