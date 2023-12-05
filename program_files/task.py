@@ -61,7 +61,8 @@ class Task:
         self.name = new_name
 
     def change_date(self, due_date: str):
-        """UPDATE ME!!!!!! change the date task is due"""
+        """UPDATE ME!!!!!! change the date task is due
+        wants the input in YYY-MM-DD form"""
         self.date = date.fromisoformat(due_date)
 
     def remove_date(self) -> None:

@@ -7,14 +7,13 @@
 {% block body %}
 
     <h1>Edit Task</h1>
-    <form action="/home" method="post">
+    <form action="#" method="post">
         {% set original_name = task.get_name()%}
         {% set original_date = task.get_date() %}
         
         <input type="text" name="name" value="{{original_name}}"/>
         <input type="date" name="date" value="{{original_date}}"/>
         <input type="submit" value="save changes"/>
-
     </form>
 
 {% endblock %}
