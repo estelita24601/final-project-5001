@@ -17,6 +17,7 @@
 
         <div>
             <p>{{task_id}}</p> <!-- remove me later -->
+
         <form action="#" method="post" name="checkbox" onclick="submit();">
             <!-- determine if checkbox will load already checked -->
             {% if check_status == true %}
@@ -29,6 +30,7 @@
             
         </form>
         
+        <!-- FIXME: FORM SUBMITTING BUT NOTHING ELSE-->
         <form action="#" method="post" name = "edit task">
             <input type="submit" name="{{task_id}}" value="edit" />
         </form>
