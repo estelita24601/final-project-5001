@@ -11,8 +11,8 @@
         {% set original_name = task.get_name()%}
         {% set original_date = task.get_date() %}
         
-        <input type="text" name="name" value="{{original_name}}"/>
-        <input type="date" name="date" value="{{original_date}}"/>
+        <input type="text" name="update_name" value="{{original_name}}"/>
+        <input type="date" name="update_date" value="{{original_date}}"/>
         <input type="submit" value="save changes"/>
     </form>
 

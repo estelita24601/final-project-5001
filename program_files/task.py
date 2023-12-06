@@ -12,7 +12,7 @@ class Task:
         self.name: str = name
         self.is_complete = is_complete
 
-        if due_date is None or due_date == "None":
+        if due_date in (None, "None", ""):
             self.date = None
         else:
             self.date = date.fromisoformat(due_date)

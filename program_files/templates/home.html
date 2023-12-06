@@ -7,6 +7,14 @@
 {% block body %}
     <h1>To-Do List</h1>
     
+    <form action="#" method="post" name="new task">
+        <input type="text" name="new_name" value="enter name of task here"/>
+        <input type="date" name="new_date" />
+        <input type="submit" value="create new task"/>
+    </form>
+    <!--bootleg gui-->
+    <p>-----------------------------------</p>
+    
     <!-- go through every entry in the dictionary of tasks -->
     {% for task_id in task_data %}
         <!-- use the dictionary entry to get info on each task object-->
