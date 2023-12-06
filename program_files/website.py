@@ -29,7 +29,7 @@ def home():
             return redirect(url_for("task_editor", post_dict=form_data))
 
     # render the template with the task info from the file
-    task_list_template = MY_ENVIRONMENT.get_template("HOME_TEMPLATE")
+    task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
     task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
     return task_list_template.render(task_data=task_dictionary)
 
