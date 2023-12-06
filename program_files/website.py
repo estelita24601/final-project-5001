@@ -4,12 +4,14 @@ from task import Task, TaskCollection
 
 app = Flask(__name__)
 
+SAVE_FILE = "save_file.csv"
 # read task names from file into a list. make it only once for entire program to use
-master_task_collection = TaskCollection("test_input_data.csv")  # TEMP: change filename
+MASTER_TASK_LIST = TaskCollection(SAVE_FILE)
 
 # set up so templates from folder can be used
-my_environment = Environment(loader=FileSystemLoader("templates/"))
-
+MY_ENVIRONMENT = Environment(loader=FileSystemLoader("templates/"))
+HOME_TEMPLATE = "home_page.html"
+EDITOR_TEMPLATE = "edit_task.html"
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -20,17 +22,15 @@ def home():
         print(f"received {form_data} of type {type(form_data)} from post request")
 
         user_action = process_post_request(
-            form_data, master_task_collection, "test_input_data.csv"
-        )  # TEMP: change file used for final version
+            form_data, MASTER_TASK_LIST, SAVE_FILE
+        )
 
         if user_action == "edit":
             return redirect(url_for("task_editor", post_dict=form_data))
 
     # render the template with the task info from the file
-    task_list_template = my_environment.get_template(
-        "home_table_version.html"
-    )  # TEMP: put final template here
-    task_dictionary = master_task_collection.get_task_dictionary()
+    task_list_template = MY_ENVIRONMENT.get_template("HOME_TEMPLATE")
+    task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
     return task_list_template.render(task_data=task_dictionary)
 
 
@@ -49,7 +49,7 @@ def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_fil
             print("didn't create new task: now checking other options") #TESTING
 
             id_number = int(key)
-            if action == "edit": #FIXME: this isn't triggering
+            if action == "edit":
                 print("now editing task") #TESTING
                 return action #return to home() function to redirected to editor url
             if action == "delete":
@@ -71,7 +71,7 @@ def create_task_from_request(attribute_dict: dict):
     date = attribute_dict["new_date"]
 
     new_task = Task(name, due_date=date)
-    master_task_collection.add_task(new_task)
+    MASTER_TASK_LIST.add_task(new_task)
 
 
 @app.route("/edit/<post_dict>", methods=["POST", "GET"])
@@ -79,7 +79,7 @@ def task_editor(post_dict):
     # even though argument given as a dictionary somehow it is a string here
     # so going to turn the string into what I need
     task_id = int(post_dict.split("'")[1])
-    task_to_edit = master_task_collection.get_task(task_id)
+    task_to_edit = MASTER_TASK_LIST.get_task(task_id)
 
     # check if user has hit submit button
     if request.method == "POST":
@@ -87,7 +87,7 @@ def task_editor(post_dict):
         update_task(task_to_edit, form_data)
         return redirect("/")
 
-    task_editor_template = my_environment.get_template("edit_task.html")
+    task_editor_template = MY_ENVIRONMENT.get_template(EDITOR_TEMPLATE)
     return task_editor_template.render(task=task_to_edit)
 
 
@@ -99,5 +99,4 @@ def update_task(task_obj, changes: dict):
     task_obj.change_name(new_name)
     task_obj.change_date(new_date)
 
-    # TEMP: change filename for final version
-    master_task_collection.update_csv("test_input_data.csv")
+    MASTER_TASK_LIST.update_csv(SAVE_FILE)
