@@ -5,8 +5,7 @@ from task import Task, TaskCollection
 app = Flask(__name__)
 
 # read task names from file into a list. make it only once for entire program to use
-master_task_collection = TaskCollection(
-    "test_input_data.csv")  # FIXME: change filename
+master_task_collection = TaskCollection("test_input_data.csv")  # TEMP: change filename
 
 # set up so templates from folder can be used
 my_environment = Environment(loader=FileSystemLoader("templates/"))
@@ -17,19 +16,20 @@ def home():
     # if user has interacted with website
     if request.method == "POST":
         form_data = request.form.to_dict()
-        # FIXME:testing
-        print(
-            f"received {form_data} of type {type(form_data)} from post request")
+        # TESTING
+        print(f"received {form_data} of type {type(form_data)} from post request")
 
-        user_action = process_post_request(form_data, master_task_collection,
-                                           "test_input_data.csv")  # FIXME: change file used for final version
+        user_action = process_post_request(
+            form_data, master_task_collection, "test_input_data.csv"
+        )  # TEMP: change file used for final version
 
-        if user_action == 'edit':
+        if user_action == "edit":
             return redirect(url_for("task_editor", post_dict=form_data))
 
     # render the template with the task info from the file
     task_list_template = my_environment.get_template(
-        "home_table_version.html")  # FIXME: put template here
+        "home_table_version.html"
+    )  # TEMP: put final template here
     task_dictionary = master_task_collection.get_task_dictionary()
     return task_list_template.render(task_data=task_dictionary)
 
@@ -37,14 +37,15 @@ def home():
 # helper for home()
 def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_file: str):
     for key, action in post_dict.items():
-        if key in ('new_name', 'new_date'):
+        if key in ("new_name", "new_date"):
             # this means user wants to make a new task
             create_task_from_request(post_dict)
+            break
         else:
             id_number = int(key)
-            if action == 'edit':
-                return action
-            elif action == 'delete':
+            if action == "edit":
+                return action #return to home() function to redirected to editor url
+            elif action == "delete":
                 collection_of_tasks.delete_task(id_number)
             else:
                 # this means user clicked checkbox
@@ -56,14 +57,14 @@ def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_fil
 
 # helper for process_post_request()
 def create_task_from_request(attribute_dict: dict):
-    name = attribute_dict['new_name']
-    date = attribute_dict['new_date']
+    name = attribute_dict["new_name"]
+    date = attribute_dict["new_date"]
 
     new_task = Task(name, due_date=date)
     master_task_collection.add_task(new_task)
 
 
-@app.route('/edit/<post_dict>', methods=['POST', 'GET'])
+@app.route("/edit/<post_dict>", methods=["POST", "GET"])
 def task_editor(post_dict):
     # even though argument given as a dictionary somehow it is a string here
     # so going to turn the string into what I need
@@ -74,7 +75,7 @@ def task_editor(post_dict):
     if request.method == "POST":
         form_data = request.form.to_dict()
         update_task(task_to_edit, form_data)
-        return redirect('/')
+        return redirect("/")
 
     task_editor_template = my_environment.get_template("edit_task.html")
     return task_editor_template.render(task=task_to_edit)
@@ -82,11 +83,11 @@ def task_editor(post_dict):
 
 # helper for task_editor
 def update_task(task_obj, changes: dict):
-    new_name = changes['update_name']
-    new_date = changes['update_date']
+    new_name = changes["update_name"]
+    new_date = changes["update_date"]
 
     task_obj.change_name(new_name)
     task_obj.change_date(new_date)
 
-    # FIXME: change filename for final version
+    # TEMP: change filename for final version
     master_task_collection.update_csv("test_input_data.csv")

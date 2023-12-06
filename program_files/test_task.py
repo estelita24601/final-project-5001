@@ -19,7 +19,7 @@ class MyTaskTester(unittest.TestCase):
     # use no optional parameters
     object_four = Task("4th task")
     id_four = id(object_four)
-    
+
     # object we'll use to change things
     object_five = Task("5th task")
     id_five = id(object_five)
@@ -48,13 +48,10 @@ class MyTaskTester(unittest.TestCase):
         self.assertEqual(self.object_four.unique_id, self.id_four)
 
     def test_get_name(self):
-        self.assertEqual(self.object_one.get_name(),
-                         "1st task")
+        self.assertEqual(self.object_one.get_name(), "1st task")
         self.assertEqual(self.object_two.get_name(), "2nd task")
-        self.assertEqual(self.object_three.get_name(),
-                         "3rd task")
-        self.assertEqual(self.object_four.get_name(),
-                         "4th task")
+        self.assertEqual(self.object_three.get_name(), "3rd task")
+        self.assertEqual(self.object_four.get_name(), "4th task")
 
     def test_get_completion_status(self):
         self.assertEqual(self.object_one.get_completion_status(), True)
@@ -74,19 +71,17 @@ class MyTaskTester(unittest.TestCase):
 
     def test_change_name(self):
         self.object_five.change_name("Re-Wire the EPS Conduits")
-        self.assertEqual(self.object_five.get_name(),
-                         "Re-Wire the EPS Conduits")
+        self.assertEqual(self.object_five.get_name(), "Re-Wire the EPS Conduits")
 
         with self.assertRaises(TypeError):
             self.object_five.change_name(3.14159)
 
     def test_change_date(self):
         self.object_five.change_date("2023-12-20")
-        self.assertEqual(self.object_five.get_date(),
-                         date.fromisoformat("2023-12-20"))
+        self.assertEqual(self.object_five.get_date(), date.fromisoformat("2023-12-20"))
 
         with self.assertRaises(TypeError):
-            self.object_five.change_date(2023-12-20)  # wrong data type
+            self.object_five.change_date(2023 - 12 - 20)  # wrong data type
 
     def test_remove_date(self):
         self.object_five.remove_date()
@@ -114,9 +109,9 @@ class MyTaskCollectionTester(unittest.TestCase):
         test_csv_line = "id_number,1st task,True,2023-11-03"
         my_task = self.task_list.task_from_csv(test_csv_line)
         self.assertIsInstance(my_task, Task)
-        self.assertEqual(my_task.get_name(),"1st task")
-        self.assertEqual(my_task.get_completion_status(),True)
-        self.assertEqual(my_task.get_date(),date.fromisoformat("2023-11-03"))
+        self.assertEqual(my_task.get_name(), "1st task")
+        self.assertEqual(my_task.get_completion_status(), True)
+        self.assertEqual(my_task.get_date(), date.fromisoformat("2023-11-03"))
 
         test_csv_line = "id_number,2nd task,False,None"
         my_task = self.task_list.task_from_csv(test_csv_line)
@@ -146,5 +141,6 @@ class MyTaskCollectionTester(unittest.TestCase):
 
         self.task_list.update_csv(self.output_file)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main(verbosity=4)

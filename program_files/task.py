@@ -1,6 +1,5 @@
 from datetime import date
 
-
 class Task:
     def __init__(self, name, is_complete=False, due_date: str = None) -> None:
         """
@@ -19,9 +18,6 @@ class Task:
 
         self.unique_id = id(self)
 
-    # def __str__(self):
-    #     return f"{self.unique_id:10} | {self.name:10} | {self.date:10} | {self.is_complete}"
-
     def get_id(self):
         return self.unique_id
 
@@ -34,8 +30,7 @@ class Task:
         return self.name
 
     def get_completion_status(self) -> bool:
-        """returns True if the task is complete and False if it is incomplete
-        """
+        """returns True if the task is complete and False if it is incomplete"""
         return self.is_complete
 
     def get_date(self):
@@ -43,12 +38,13 @@ class Task:
         otherwise returns None
         """
         return self.date
-    
+
     def get_display_date(self) -> str:
         if self.date is not None:
-            return self.date.strftime('%m/%d/%y')
-        else: return ''
-        
+            return self.date.strftime("%m/%d/%y")
+        else:
+            return ""
+
     def change_name(self, new_name: str) -> None:
         """changes the name of the task
 
@@ -68,12 +64,6 @@ class Task:
     def remove_date(self) -> None:
         self.date = None
 
-    def mark_complete(self):
-        self.is_complete = True
-
-    def mark_incomplete(self):
-        self.is_complete = False
-    
     def change_completion(self) -> None:
         self.is_complete = not self.is_complete
 
@@ -86,9 +76,10 @@ class Task:
             due_date = "None"
         return ",".join((unique_id, self.name, is_complete, due_date))
 
-    def change_id(self, new_id:int) -> None:
-        #for testing purposes only
+    def change_id(self, new_id: int) -> None:
+        # for testing purposes only
         self.unique_id = new_id
+
 
 class TaskCollection:
     def __init__(self, file_name: str):
@@ -99,7 +90,7 @@ class TaskCollection:
                 task_list.append(current_task)
 
         self.task_dictionary = self.create_obj_dict(task_list)
-        self.update_csv(file_name) # put unique id for each object into csv
+        self.update_csv(file_name)  # put unique id for each object into csv
 
     def task_from_csv(self, csv_line: str) -> Task:
         # csv_line = "name of task, False, None"
@@ -107,16 +98,19 @@ class TaskCollection:
         name = csv_list[1].strip()
 
         is_complete = csv_list[2]
-        if is_complete == "False": is_complete = False
-        else: is_complete = True
+        if is_complete == "False":
+            is_complete = False
+        else:
+            is_complete = True
 
         due_date = csv_list[3].strip()
-        if due_date == "None": due_date = None
+        if due_date == "None":
+            due_date = None
 
         return Task(name, is_complete, due_date)
 
     def update_csv(self, file_name: str):
-        print("---UPDATING CSV FILE")
+        print("-------UPDATING CSV FILE")  # TESTING
         with open(file_name, "w") as csv_file:
             for line in self.create_csv_list():
                 csv_file.write(line)
