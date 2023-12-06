@@ -37,21 +37,31 @@ def home():
 # helper for home()
 def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_file: str):
     for key, action in post_dict.items():
+        print(f"----key = {key} {type(key)} \n----action = {action} {type(action)}")  # testing
+        
+        
         if key in ("new_name", "new_date"):
+            print("now creating new task") #TESTING
             # this means user wants to make a new task
             create_task_from_request(post_dict)
             break
         else:
+            print("didn't create new task: now checking other options") #TESTING
+
             id_number = int(key)
-            if action == "edit":
+            if action == "edit": #FIXME: this isn't triggering
+                print("now editing task") #TESTING
                 return action #return to home() function to redirected to editor url
-            elif action == "delete":
+            if action == "delete":
+                print("now deleting task") #TESTING
                 collection_of_tasks.delete_task(id_number)
-            else:
+            elif action in ("checkbox", "True"):
+                print("now ticking checkbox")#TESTING
                 # this means user clicked checkbox
                 task_obj = collection_of_tasks.get_task(id_number)
                 task_obj.change_completion()
 
+    print("left the loop now going to update csv") #testing
     collection_of_tasks.update_csv(csv_file)
 
 
