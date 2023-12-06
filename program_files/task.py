@@ -46,7 +46,7 @@ class Task:
     
     def get_display_date(self) -> str:
         if self.date is not None:
-            return self.date.strftime('%a.  %m/%d/%y')
+            return self.date.strftime('%m/%d/%y')
         else: return ''
         
     def change_name(self, new_name: str) -> None:
