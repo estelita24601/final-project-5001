@@ -8,16 +8,16 @@
     <input type="date" name="new_date" />
     <input type="submit" value="create new task" />
 </form>
-<!--bootleg gui-->
-<p>-------------------------------------------</p>
 
-<table>
+<hr class="solid">
+
+<table style="width: 100%;">
     <!-- create columns headers -->
     <tr>
         <th>   </th>
-        <th>&nbsp;&nbsp;Task&nbsp;&nbsp;</th>
-        <th>&nbsp;Date&nbsp;&nbsp;</th>
-        <th>&nbsp;Actions&nbsp;</th>
+        <th>Task</th>
+        <th>Date</th>
+        <th>Actions</th>
     </tr>
     
     {% for task_id in task_data %}
@@ -41,7 +41,7 @@
         </td>
         
         <!-- Task Name-->
-        <td>
+        <td style="text-align:left">
             <p>{{name_value}}</p>
 
         </td>
@@ -52,7 +52,7 @@
         </td>
         
         <!-- edit and delete buttons-->
-        <td>
+        <td style="text-align: center;">
             <form action="" method="post" name="edit task">
                 <input type="submit" name="{{task_id}}" value="edit" />
             </form>
