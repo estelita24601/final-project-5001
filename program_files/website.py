@@ -1,11 +1,13 @@
+import json
+from task import Task, TaskCollection
 from flask import Flask, request, redirect, url_for
 from jinja2 import Environment, FileSystemLoader
-from task import Task, TaskCollection
 
 app = Flask(__name__)
 
+REQUEST_HISTORY = "request_history.json"
 SAVE_FILE = "save_file.csv"
-# read task names from file into a list. make it only once for entire program to use
+# read task names from file into our TaskCollection object. make it only once for entire program to use
 MASTER_TASK_LIST = TaskCollection(SAVE_FILE)
 
 # set up so templates from folder can be used
@@ -18,21 +20,28 @@ EDITOR_TEMPLATE = "edit_task.html"
 def home():
     # if user has interacted with website
     if request.method == "POST":
+        # get the info about user interaction in dictionary form
         form_data = request.form.to_dict()
-        # TESTING
-        print(f"received {form_data} of type {type(form_data)} from post request")
 
-        user_action = process_post_request(form_data, MASTER_TASK_LIST, SAVE_FILE)
-
-        if user_action == "edit":
-            return redirect(url_for("task_editor", post_dict=form_data))
-        else:
-            print(f"executed {user_action} and now back home") #TESTING
+        # load the previous request from JSON file
+        with open(REQUEST_HISTORY, "r") as request_file:
+            previous_request = json.load(request_file)
+        
+        # if this is a new request the update JSON file and process the request
+        if form_data != previous_request:
+            with open(REQUEST_HISTORY, "w") as request_file:
+                json.dump(form_data, request_file)
+                
+            user_action = process_post_request(
+                form_data, MASTER_TASK_LIST, SAVE_FILE
+            )
+            if user_action == "edit":
+                return redirect(url_for("task_editor", post_dict=form_data))
 
     # render the template with the task info from the file
     task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
     task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
-    print("now going to render template with data from csv file") #TESTING
+    print("-----now going to render template with data from csv file")  # TESTING
     return task_list_template.render(task_data=task_dictionary)
 
 
