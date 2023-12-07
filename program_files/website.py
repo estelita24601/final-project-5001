@@ -13,6 +13,7 @@ MY_ENVIRONMENT = Environment(loader=FileSystemLoader("templates/"))
 HOME_TEMPLATE = "home_page.html"
 EDITOR_TEMPLATE = "edit_task.html"
 
+
 @app.route("/", methods=["POST", "GET"])
 def home():
     # if user has interacted with website
@@ -21,47 +22,42 @@ def home():
         # TESTING
         print(f"received {form_data} of type {type(form_data)} from post request")
 
-        user_action = process_post_request(
-            form_data, MASTER_TASK_LIST, SAVE_FILE
-        )
+        user_action = process_post_request(form_data, MASTER_TASK_LIST, SAVE_FILE)
 
         if user_action == "edit":
             return redirect(url_for("task_editor", post_dict=form_data))
+        else:
+            print(f"executed {user_action} and now back home") #TESTING
 
     # render the template with the task info from the file
     task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
     task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
+    print("now going to render template with data from csv file") #TESTING
     return task_list_template.render(task_data=task_dictionary)
 
 
 # helper for home()
 def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_file: str):
     for key, action in post_dict.items():
-        print(f"----key = {key} {type(key)} \n----action = {action} {type(action)}")  # testing
-        
-        
+        print(
+            f"----key = {key} {type(key)} \n----action = {action} {type(action)}"
+        )  # testing
+
         if key in ("new_name", "new_date"):
-            print("now creating new task") #TESTING
             # this means user wants to make a new task
             create_task_from_request(post_dict)
             break
         else:
-            print("didn't create new task: now checking other options") #TESTING
-
             id_number = int(key)
             if action == "edit":
-                print("now editing task") #TESTING
-                return action #return to home() function to redirected to editor url
+                return action  # return to home() function to redirected to editor url
             if action == "delete":
-                print("now deleting task") #TESTING
                 collection_of_tasks.delete_task(id_number)
             elif action in ("checkbox", "True"):
-                print("now ticking checkbox")#TESTING
                 # this means user clicked checkbox
                 task_obj = collection_of_tasks.get_task(id_number)
                 task_obj.change_completion()
 
-    print("left the loop now going to update csv") #testing
     collection_of_tasks.update_csv(csv_file)
 
 
@@ -96,7 +92,9 @@ def update_task(task_obj, changes: dict):
     new_name = changes["update_name"]
     new_date = changes["update_date"]
 
-    task_obj.change_name(new_name)
-    task_obj.change_date(new_date)
+    if new_name:
+        task_obj.change_name(new_name)
+    if new_date:
+        task_obj.change_date(new_date)
 
     MASTER_TASK_LIST.update_csv(SAVE_FILE)

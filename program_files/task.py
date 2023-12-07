@@ -1,5 +1,6 @@
 from datetime import date
 
+
 class Task:
     def __init__(self, name, is_complete=False, due_date: str = None) -> None:
         """
@@ -84,10 +85,14 @@ class Task:
 class TaskCollection:
     def __init__(self, file_name: str):
         task_list = []
-        with open(file_name, "r") as task_file:
-            for line in task_file:
-                current_task = self.task_from_csv(line)
-                task_list.append(current_task)
+        try:
+            with open(file_name, "r") as task_file:
+                for line in task_file:
+                    current_task = self.task_from_csv(line)
+                    task_list.append(current_task)
+        except FileNotFoundError:
+            new_file = open(file_name, "x")
+            new_file.close()
 
         self.task_dictionary = self.create_obj_dict(task_list)
         self.update_csv(file_name)  # put unique id for each object into csv
