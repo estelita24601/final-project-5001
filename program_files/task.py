@@ -109,11 +109,9 @@ class Task:
 
 
 class TaskCollection:
-    "Class representing multiple Tasks that are on the same checklist"
+    """Class representing multiple Tasks that are on the same checklist"""
 
-    "Class representing multiple Tasks that are in the same checklist"
-
-    def __init__(self, save_save_file_name: str) -> None -> None:
+    def __init__(self, save_file_name: str) -> None:
         task_list = []
         # read from file to create Tasks objects that are inside of this instance of TaskCollection
         try:
