@@ -38,6 +38,17 @@ def home():
 
 # helper for home()
 def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_file: str):
+    """_summary_
+
+    Args:
+        post_dict (_type_): _description_
+        collection_of_tasks (TaskCollection): _description_
+        csv_file (str): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    
     for key, action in post_dict.items():
         print(
             f"----key = {key} {type(key)} \n----action = {action} {type(action)}"

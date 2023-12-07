@@ -83,7 +83,9 @@ class Task:
 
 
 class TaskCollection:
-    def __init__(self, file_name: str):
+    "Class representing multiple Tasks that are in the same checklist"
+
+    def __init__(self, save_file_name: str) -> None:
         task_list = []
         try:
             with open(file_name, "r") as task_file:
