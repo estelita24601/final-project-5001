@@ -94,17 +94,21 @@ class Task:
         """
         unique_id = str(self.unique_id)
         is_complete = str(self.is_complete)
-        try:
+
+        try:  # try to turn self.date into a string
             due_date = self.date.isoformat()
-        except AttributeError:
+        except (
+            AttributeError
+        ):  # if that doesn't work then create default string of 'None'
             due_date = "None"
+
         return ",".join((unique_id, self.name, is_complete, due_date))
 
+    # for testing purposes only
     def change_id(self, new_id: int) -> None:
         """Changes value of self.unique_id so you can know what output to expect from get_id().
         Only used for testing purposes
         """
-        # for testing purposes only
         self.unique_id = new_id
 
 
@@ -137,11 +141,11 @@ class TaskCollection:
         Returns:
             Task: instance of the Task class
         """
-        # csv_line = "name of task, False, None"
         csv_list = csv_line.split(",")
         name = csv_list[1].strip()
 
         is_complete = csv_list[2]
+        # converting the str into a bool
         if is_complete == "False":
             is_complete = False
         else:
@@ -169,11 +173,12 @@ class TaskCollection:
         Returns:
             list[str]: list of strings where every string will be one line of a csv file
         """
+        # for every task in the dictionary, turn it into a string for a csv file
         return [task.to_csv() for task in self.task_dictionary.values()]
 
     # helper for __init__()
     def create_obj_dict(self, task_list: list[Task]) -> dict:
-        """turn a list of Task objects into a dictionary to facilitate retrieval
+        """turn a list of Task objects into a dictionary to facilitate retrieval.
 
         Args:
             task_list (list[Task]): a list of task objects
