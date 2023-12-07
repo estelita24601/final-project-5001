@@ -41,17 +41,12 @@ def home():
     # render the template with the task info from the file
     task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
     task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
-    print("-----now going to render template with data from csv file")  # TESTING
     return task_list_template.render(task_data=task_dictionary)
 
 
 # helper for home()
 def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_file: str):
     for key, action in post_dict.items():
-        print(
-            f"----key = {key} {type(key)} \n----action = {action} {type(action)}"
-        )  # testing
-
         if key in ("new_name", "new_date"):
             # this means user wants to make a new task
             create_task_from_request(post_dict)
@@ -86,7 +81,7 @@ def task_editor(post_dict):
     task_id = int(post_dict.split("'")[1])
     task_to_edit = MASTER_TASK_LIST.get_task(task_id)
 
-    # check if user has hit submit button
+    # if user hit the submit button then update task and return home
     if request.method == "POST":
         form_data = request.form.to_dict()
         update_task(task_to_edit, form_data)
@@ -101,6 +96,7 @@ def update_task(task_obj, changes: dict):
     new_name = changes["update_name"]
     new_date = changes["update_date"]
 
+    # only update task object if name/date fields weren't empty
     if new_name:
         task_obj.change_name(new_name)
     if new_date:
