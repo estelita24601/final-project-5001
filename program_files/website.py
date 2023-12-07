@@ -23,16 +23,20 @@ def home():
         # get the info about user interaction in dictionary form
         form_data = request.form.to_dict()
 
-        # make sure this isn't a duplicate request from the refresh button:
-        with open(REQUEST_HISTORY, "w") as request_file:
-            previous_request = json.load(request_file) #BUG
-            if form_data != previous_request:
-                json.dump(form_data, REQUEST_HISTORY)
-                user_action = process_post_request(
-                    form_data, MASTER_TASK_LIST, SAVE_FILE
-                )
-                if user_action == "edit":
-                    return redirect(url_for("task_editor", post_dict=form_data))
+        # load the previous request from JSON file
+        with open(REQUEST_HISTORY, "r") as request_file:
+            previous_request = json.load(request_file)
+        
+        # if this is a new request the update JSON file and process the request
+        if form_data != previous_request:
+            with open(REQUEST_HISTORY, "w") as request_file:
+                json.dump(form_data, request_file)
+                
+            user_action = process_post_request(
+                form_data, MASTER_TASK_LIST, SAVE_FILE
+            )
+            if user_action == "edit":
+                return redirect(url_for("task_editor", post_dict=form_data))
 
     # render the template with the task info from the file
     task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
