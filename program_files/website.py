@@ -58,8 +58,8 @@ def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_fil
     """
     
     for key, action in post_dict.items():
+        # post_dict for new tasks has different format so check for that
         if key in ("new_name", "new_date"):
-            # this means user wants to make a new task
             create_task_from_request(post_dict)
             break
         else:
