@@ -128,9 +128,9 @@ class TaskCollection:
             new_file = open(save_file_name, "x")
             new_file.close()
 
-        # update the save file to reflect all Tasks inside of Task Collection
         self.task_dictionary = self.create_obj_dict(task_list)
-        self.update_csv(save_file_name)  # put unique id for each object into csv
+        # update the save file so the unique id numbers of the objects are updated
+        self.update_csv(save_file_name)
 
     def task_from_csv(self, csv_line: str) -> Task:
         """given one line from a csv file, create a Task object with the proper attributes

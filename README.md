@@ -39,11 +39,11 @@ In addition to creating, editing and deleting tasks, the website also saves what
 
 * click the "save changes" button to be brought finish editing the task and be brought back to the main view with all tasks
   
-  ## Installation Instructions
+  ##Installation Instructions
 
 * download flask: ```pip install flask```
 
-* To launch the website navigate to the ```program_files``` directory on commandline and type the following: `python -m flask --app website.py run`
+* To launch the website navigate to the ```program_files``` directory on command line and type the following: `python -m flask --app website.py run`
 
 * Click on the link (Ctrl+Click) to open the website on your browser.
 
@@ -51,7 +51,7 @@ In addition to creating, editing and deleting tasks, the website also saves what
 
 ## Code Review
 
-##### website.py
+#### <u>website.py</u>
 
 ```python
 @app.route("/", methods=["POST", "GET"])
@@ -100,13 +100,11 @@ def task_editor(post_dict):
 
 * after any post requests have been dealt with `home()` and `task_editor()` get the html template they're associated with and return the template to the front end in a get request. `.render(variable_name = my_info)` is used on the template to pass along what information the webpage needs to display.
 
-##### HTML Templates + Jinja2
+#### <u> HTML Templates + Jinja2</u>
 
 home_page.html
 
 * template for the home page of the website where the user will spend most of their time. Lists out all the tasks and has a GUI to interact with tasks in the list
-  
-  
 
 ```jinja2
 {% for task_id in task_data %}
@@ -118,8 +116,6 @@ home_page.html
 ```
 
 * When this template was rendered the variable `task_data` received a dictionary of task objects. Using jinja I can loop through every task in the dictionary and extract the information I want to display
-
-
 
 ```html
 <form action="" method="post" name="new task">
@@ -164,31 +160,64 @@ edit_task.html
 
 * Has a text input field, date input field and a button that will save the information and return the user to the home page.
 
-##### task.py
+#### <u>task.py</u>
 
-* 
+`Task` class - make every individual task an object with a name, date, id number and completion status. 
 
+* date is an optional parameter that will create a datetime object if given a string in the correct ISO format (YYYY-MM-DD) otherwise it will have a value of `None`
 
+* the id number is created with `self.unique_id = id(self)` and is used as the key for this object whenever its put into a dictionary. 
+
+* ```python
+  def to_csv(self) -> str:
+          unique_id = str(self.unique_id)
+          is_complete = str(self.is_complete)
+  
+          try:
+              due_date = self.date.isoformat()
+          except AttributeError:
+              due_date = "None"
+  
+          return ",".join((unique_id, self.name, is_complete, due_date))
+  ```
+
+* `to_csv()` is mostly used by the `TaskCollection` class to update csv files. It takes all the attributes of the object and turns them into strings which it then transforms into csv format. The exception handling is for cases when the task doesn't have a date and `self.date` is not a date object
+
+`TaskCollection` class - a container for all of the task objects that will be displayed on the website. 
+
+* `__init__` 
+  
+  * reads a csv file using helper function `task_from_csv()` to create a `Task` object with the correct attributes for each line in the file. 
+  
+  * These objects are all put into a dictionary using `create_obj_dict()`, with the keys being the unique id numbers of the task object, and the value being the task objects themselves. 
+  
+  * the csv file is then updated to reflect the unique id numbers for each object
+
+* `update_csv()` and `create_csv_list()`
+  
+  * `create_csv_list()` is a helper function for `update_csv()`. It uses list comprehension to convert every task object the dictionary into a csv formatted string with the task object's `to_csv()` method.
+
+**General Comments on the Code**
+
+* Since the id numbers for each task is based off of location in memory there is only one instance of `TaskCollection` created so that each task is also only created once. This is done in the global scope of `website.py` to prevent new instances being created whenever the page reloads or re-renders. This way each instance of `Task` has an unique id number that doesn't change during the runtime of the program, even if it is edited in any way.
+
+* I think using JSON instead of .csv would have made the code more readable by cutting down on all the string formatting and parsing I had to do to convert to and from a dictionary.
+
+* Currently I am re-writing the entire csv file any time a change is made and then re-rendering the template. It would be more efficient instead make edits to the csv file. It would still require a loop to find the correct line to edit or delete, but would often finish early. Meanwhile adding a task wouldn't require a loop at all anymore and would be much faster.
 
 ### Major Challenges
-
-Key aspects could include pieces that you struggled on and/or pieces that you are proud of and want to show off.
 
 * The first major hurdle was figuring out what a post request was and how to handle them. At first I could only send a post request if the user hit a submit button after every change, and it would send information about every single input element on the page which was harder to process. When I started to better understand how `<input>` and `<form>` worked I was able to set up my html page to send smaller and easier to understand post requests whenever the user interacted with the website. 
 
 * The hardest bug to fix was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use javascript to override flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a json file to save the most recent post request so it could be compared to the next post request sent. 
 
-
-
-### Example Runs
+### Example Runs*****TODO: MAKE SCREEN RECORDING
 
 Explain how you documented running the project, and what we need to look for in your repository (text output from the project, small videos, links to videos on youtube of you running it, etc)
 
 ## Testing
 
 How did you test your code? What did you do to make sure your code was correct? If you wrote unit tests, you can link to them here. If you did run tests, make sure you document them as text files, and include them in your submission. 
-
-> _Make it easy for us to know you *ran the project* and *tested the project* before you submitted this report!_
 
 * In the repository there's a folder named `testing` that contains my tests.
 
@@ -201,12 +230,14 @@ How did you test your code? What did you do to make sure your code was correct? 
 * To test my html input elements and post requests I created a temporary webpage that all forms would redirect to that displayed the post request. This also helped me figure out the best format for the data I sent in my post requests. However once I started putting in more buttons I switched over to using more print statements.
   
   ![](https://cdn.discordapp.com/attachments/778320935488716851/1180713497219305472/image.png)
-  
-  
 
 ## Missing Features / What's Next
 
-Focus on what you didn't get to do, and what you would do if you had more time, or things you would implement in the future. 
+* Currently editing a task redirects you to a different page where you can only see the task you're editing. With more time I woud have liked to allow tasks to be edited on the homepage, perhaps by re-rendering the page with text and date input elements in place of the text elements previously displaying the task's name and date. And then replacing the edit/delete buttons with a save button.
+
+* Now that I have the basic working I'd like to add multiple ways to sort the tasks on the list by name, date, and completion. On a similar vein adding filter views would be nice as well.
+
+* A larger goal for the future would be the ability to nest tasks, though it might require a significant amount of refactoring.
 
 ## Final Reflection
 
