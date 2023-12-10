@@ -1,7 +1,5 @@
-import sys
-sys.path.insert(0,'CS 5001\Final Project - 5001\program_files') #FIXME
 import unittest
-from task import Task, TaskCollection #FIXME
+from task_2 import Task, TaskCollection
 from datetime import date
 
 
@@ -90,11 +88,11 @@ class MyTaskTester(unittest.TestCase):
         self.assertEqual(self.object_five.get_date(), None)
 
     def test_change_completion(self):
-        self.object_five.mark_complete()
+        self.object_five.change_completion()
         self.assertEqual(self.object_five.get_completion_status(), True)
-        self.object_five.mark_incomplete()
+        self.object_five.change_completion()
         self.assertEqual(self.object_five.get_completion_status(), False)
-        self.object_five.mark_complete()
+        self.object_five.change_completion()
         self.assertEqual(self.object_five.get_completion_status(), True)
 
     def test_to_csv(self):
@@ -103,8 +101,8 @@ class MyTaskTester(unittest.TestCase):
 
 
 class MyTaskCollectionTester(unittest.TestCase):
-    input_file = "test_input_data.csv"
-    output_file = "test_output_data.csv"
+    input_file = "test_input_data"
+    output_file = "test_output_data"
     task_list = TaskCollection(input_file)
 
     def test_task_from_csv(self):
@@ -128,18 +126,18 @@ class MyTaskCollectionTester(unittest.TestCase):
         self.assertEqual(test_one.get_id(), 1234)
 
         self.task_list.add_task(test_one)
-        self.assertEqual(len(self.task_list.task_dictionary), 4)
+        self.assertEqual(len(self.task_list.task_dictionary), 1)
 
         test_two = self.task_list.get_task(1234)
         self.assertEqual(test_two, test_one)
 
         self.task_list.delete_task(1234)
-        self.assertEqual(len(self.task_list.task_dictionary), 3)
+        self.assertEqual(len(self.task_list.task_dictionary), 0)
 
         test_three = Task("New Task!!")
         test_three.change_id(24601)
         self.task_list.add_task(test_three)
-        self.assertEqual(len(self.task_list.task_dictionary), 4)
+        self.assertEqual(len(self.task_list.task_dictionary), 1)
 
         self.task_list.update_csv(self.output_file)
 

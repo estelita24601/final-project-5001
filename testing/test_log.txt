@@ -1,0 +1,17 @@
+test_task_from_csv (__main__.MyTaskCollectionTester) ... ok
+test_tasks_inside_task_list (__main__.MyTaskCollectionTester) ... ok
+test_change_completion (__main__.MyTaskTester) ... ok
+test_change_date (__main__.MyTaskTester) ... ok
+test_change_name (__main__.MyTaskTester) ... ok
+test_get_completion_status (__main__.MyTaskTester) ... ok
+test_get_date (__main__.MyTaskTester) ... ok
+test_get_id (__main__.MyTaskTester) ... ok
+test_get_name (__main__.MyTaskTester) ... ok
+test_init (__main__.MyTaskTester) ... ok
+test_remove_date (__main__.MyTaskTester) ... ok
+test_to_csv (__main__.MyTaskTester) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.005s
+
+OK
