@@ -1,7 +1,7 @@
 import json
-from task import Task, TaskCollection
 from flask import Flask, request, redirect, url_for
 from jinja2 import Environment, FileSystemLoader
+from task import Task, TaskCollection
 
 app = Flask(__name__)
 
@@ -29,6 +29,7 @@ def home():
         
         # if this is a new request the update JSON file and process the request
         if form_data != previous_request:
+            # update the previous request
             with open(REQUEST_HISTORY, "w") as request_file:
                 json.dump(form_data, request_file)
                 
@@ -87,8 +88,7 @@ def create_task_from_request(attribute_dict: dict):
 
 @app.route("/edit/<post_dict>", methods=["POST", "GET"])
 def task_editor(post_dict):
-    # even though argument given as a dictionary somehow it is a string here
-    # so going to turn the string into what I need
+    # parsing a dictionary in string form to get task id
     task_id = int(post_dict.split("'")[1])
     task_to_edit = MASTER_TASK_LIST.get_task(task_id)
 
