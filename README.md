@@ -63,22 +63,12 @@ This function is for the homepage of the website. The decorator specifies the UR
 The post request is used to get information from the website whenever a form is submitted. 
 
 * if a post request has been detected the home() function will take that information and put it into dictionary form inside of the variable `form_data`
-  
-  * if the user clicked delete `form_data = {id_number: "delete"}``
-  
-  * if the user clicked edit `form_data = {id_number: "edit"}`
-  
-  * if the user clicked a checkbox `form_data = {id_number: "True"}` or `{id_number: "checkbox"}`
-    
-    * The checkbox input in HTML will send back "True" when it's checked but when unchecked it sends nothing so I created a hidden element that will send back "checkbox" so I can know when tasks are unchecked as well
-  
-  * if the user clicked create new task `form_data = {"new_name": "what the user typed", "new_date": "YYYY-MM-DD"}`
 
 * Because Flask will resend a duplicate post request when the page is refreshed, the program will compare the request to `request_history.json` to prevent the bugs that would occur otherwise. 
 
 * After confirming this post request isn't the result of a page refresh the program will update ```request_history.json``` and then use  ```process_post_request()``` to execute whatever is needed to complete the user's request.
 
-* `process_post_request()` can handle deleting tasks, changing checkboxes, and creating new tasks with helper functions and built-in class methods from the backend. For editing tasks `process_post_request` will return "edit" and the `home()` function will then redirect to a different webpage if detected.
+* `process_post_request()` can handle deleting tasks, changing checkboxes, and creating new tasks with helper functions. However for editing tasks `process_post_request` will return `"edit"` and the `home()` function will then redirect to a different webpage.
 
 ```python
 if user_action == "edit":
@@ -211,9 +201,9 @@ edit_task.html
 
 * The hardest bug to fix was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use JavaScript to override Flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a JSON file to save the most recent post request so it could be compared to the next post request sent. 
 
-### Example Runs*****TODO: MAKE SCREEN RECORDING
+### Example Run
 
-Explain how you documented running the project, and what we need to look for in your repository (text output from the project, small videos, links to videos on youtube of you running it, etc)
+* [5001 Final Project Demo - YouTube](https://www.youtube.com/watch?v=F8nvG_GGA0Q&ab_channel=Ita)
 
 ## Testing
 
@@ -227,17 +217,21 @@ How did you test your code? What did you do to make sure your code was correct? 
 
 * Testing flask was harder but I ended up using a lot of print statements that would show up on the command line and were very helpful for debugging.
 
-* To test my html input elements and post requests I created a temporary webpage that all forms would redirect to that displayed the post request. This also helped me figure out the best format for the data I sent in my post requests. However, once I started putting in more buttons I switched over to using more print statements.
+* To test my html input elements and post requests I created a temporary webpage that all forms would redirect to that displayed the post request. This also helped me figure out the best format for the data I sent in my post requests. I would also keep my CSV file open to the side to make sure it was being edited correctly. As the website progressed I had to get rid of the temporary webpage and switched to more print statements.
   
   ![](https://cdn.discordapp.com/attachments/778320935488716851/1180713497219305472/image.png)
 
+* When testing interaction with the website I would 
+
 ## Missing Features / What's Next
 
-* Currently editing a task redirects you to a different page where you can only see the task you're editing. With more time I would have liked to allow tasks to be edited on the homepage, perhaps by re-rendering the page with text and date input elements in place of the text elements previously displaying the task's name and date. And then replacing the edit/delete buttons with a save button.
+* Currently editing a task redirects you to a different page where you can only see the task you're editing. With more time I would have liked to allow tasks to be edited on the homepage.
+  
+  * Perhaps by re-rendering the page with text and date input elements in place of the text elements previously displaying the task's name and date. And then replacing the edit/delete buttons with a save button.
 
-* Now that I have the basic working I'd like to add multiple ways to sort the tasks on the list by name, date, and completion. In a similar vein adding filter views would be nice as well.
-
-* A larger goal for the future would be the ability to nest tasks, though it might require a significant amount of refactoring.
+* Now that I have the basic working I'd like to add multiple ways to sort the tasks on the list by name, date, and completion. I would also love to add the ability to nest tasks.
+  
+  * For sorting I could just keep the instance of `TaskCollection` the same and just re-sort the CSV file. Or it might be better to switch to an array since the dictionary might make nesting tasks cumbersome as well. I could extend `TaskCollection` to make a class for groups of nested tasks that indicates which task is the main header task and which ones are the subtasks.
 
 ## Final Reflection
 
