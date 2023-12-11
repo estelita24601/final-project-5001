@@ -93,6 +93,8 @@ def task_editor(post_dict):
     # if user hit the submit button then update task and return home
     if request.method == "POST":
         form_data = request.form.to_dict()
+        with open(REQUEST_HISTORY, "w") as request_file:
+            json.dump(form_data, request_file)
         update_task(task_to_edit, form_data)
         return redirect("/")
 
@@ -106,9 +108,9 @@ def update_task(task_obj, changes: dict):
     new_date = changes["update_date"]
 
     # only update task object if name/date fields weren't empty
-    if new_name:
+    if new_name != task_obj.get_name():
         task_obj.change_name(new_name)
-    if new_date:
+    if new_date != task_obj.get_display_date():
         task_obj.change_date(new_date)
 
     MASTER_TASK_LIST.update_csv(SAVE_FILE)
