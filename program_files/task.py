@@ -127,7 +127,6 @@ class TaskCollection:
                 for line in task_file:
                     current_task = self.task_from_csv(line)
                     task_list.append(current_task)
-        # if a save file does not exist create one
         except FileNotFoundError:
             new_file = open(save_file_name, "x")
             new_file.close()
