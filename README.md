@@ -51,7 +51,7 @@ In addition to creating, editing, and deleting tasks, the website also saves wha
 
 ## Code Review
 
-#### <u>website.py</u>
+#### <u>[website.py](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/website.py)</u>
 
 ```python
 @app.route("/", methods=["POST", "GET"])
@@ -92,7 +92,7 @@ def task_editor(post_dict):
 
 #### <u> HTML Templates + Jinja2</u>
 
-home_page.html
+<u>[home_page.html](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/templates/home_page.html)</u>
 
 * template for the home page of the website where the user will spend most of their time. Lists out all the tasks and has a GUI to interact with tasks in the list
 
@@ -144,15 +144,15 @@ home_page.html
 
 (for all the html input elements above `name=` and `value=` get returned to the flask application in the post request as a key value pair so they were chosen strategically so they could be more easily processed)
 
-edit_task.html
+[edit_task.html](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/templates/edit_task.html)
 
 * When a user wants to edit a task they get redirected to a page that renders this html file.
 
 * Has a text input field, date input field, and a button that will save the information and return the user to the home page.
 
-#### <u>task.py</u>
+#### <u>[task.py](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/task.py)</u>
 
-`Task` class - make every individual task an object with a name, date, id number, and completion status. 
+[`Task`](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/task.py#L4) class - make every individual task an object with a name, date, id number, and completion status. 
 
 * date is an optional parameter that will create a datetime object if given a string in the correct ISO format (YYYY-MM-DD) otherwise it will have a value of `None`
 
@@ -173,7 +173,7 @@ edit_task.html
 
 * `to_csv()` is mostly used by the `TaskCollection` class to update csv files. It takes all the attributes of the object and turns them into strings which it then transforms into CSV format. The exception handling is for cases when the task doesn't have a date and `self.date` is not a date object
 
-`TaskCollection` class - a container for all of the task objects that will be displayed on the website. 
+[`TaskCollection`](https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/program_files/task.py#L115) class - a container for all of the task objects that will be displayed on the website. 
 
 * `__init__` 
   
@@ -197,9 +197,9 @@ edit_task.html
 
 ### Major Challenges
 
-* The first major hurdle was figuring out what a post request was and how to handle them. At first, I could only send a post request if the user hit a submit button after every change, and it would send information about every single input element on the page which was harder to process. When I started to better understand how `<input>` and `<form>` worked I was able to set up my HTML page to send smaller and easier to understand post requests whenever the user interacted with the website. 
+* The first major hurdle was figuring out what a post request was and how to handle them. At first, I could only send a post request if the user hit a submit button after every change, and it would send information about every single input element on the page which was harder to process. When I started to better understand how `<input>` and `<form>` worked I was able to set up my HTML page to send smaller and easier to understand post requests whenever the user interacted with the website.
 
-* The hardest bug to fix was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use JavaScript to override Flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a JSON file to save the most recent post request so it could be compared to the next post request sent. 
+* The hardest bug to figure out was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use JavaScript to override Flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a JSON file to save the most recent post request so it could be compared to the next post request sent. 
 
 ### Example Run
 
@@ -209,9 +209,9 @@ edit_task.html
 
 How did you test your code? What did you do to make sure your code was correct? If you wrote unit tests, you can link to them here. If you did run tests, make sure you document them as text files, and include them in your submission. 
 
-* In the repository there's a folder named `testing` that contains my tests.
+* In the repository there's a folder named [testing](https://github.com/estelita24601/final-project-5001/tree/bf1eb650e62033d3d107b5aa631688ef4390881d/testing) that contains my tests.
 
-* I extended `unittest` and wrote tests for all the methods in `Task`
+* I extended `unittest` and wrote tests for all the methods in `Task` (https://github.com/estelita24601/final-project-5001/blob/bf1eb650e62033d3d107b5aa631688ef4390881d/testing/test_task.py)
 
 * I also wrote a test class for `TaskCollection` however some methods couldn't be checked by `.assert` as easily so I had those methods update a CSV file so I could manually see if the output matched what I expected.
 
@@ -235,4 +235,4 @@ How did you test your code? What did you do to make sure your code was correct? 
 
 ## Final Reflection
 
-Write at least a paragraph about your experience in this course. What did you learn? What do you need to do to learn more? Key takeaways? etc.
+* In this course I've started to learn how the memory stack works, which has given me a better understanding of mutability and scope than I had before. This also improved my understanding of objects in Python. Another key thing I've learned is how to write more comprehensive tests. I've gotten better at catching edge cases now, and learning how to use doctest and unittest has made it much easier/faster as well. Particularly through this project I've gotten better at reading and understanding documentation. Teaching myself how to use Flask and HTML from scratch was difficult at first but it was a great learning experience and has made me feel less intimidated about using new languages or libraries in the future. Going forward in my learning I would like to do practice problems more frequently throughout the week and dig deeper into how programming languages work behind the scenes.
