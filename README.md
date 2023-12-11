@@ -226,7 +226,7 @@ How did you test your code? What did you do to make sure your code was correct? 
 
   ![](https://cdn.discordapp.com/attachments/778320935488716851/1180713497219305472/image.png)
 
-* When testing interaction with the website I would 
+* When testing interaction with the website I would cycle through the same few interactions. Checking and unchecking several of the already existing tasks. Creating one new task with a date and another with no date. Editing just the name of a task, just the date of task and then editing both. And finally, I would delete tasks.
 
 ## Missing Features / What's Next
 
