@@ -117,14 +117,15 @@ class TaskCollection:
 
     def __init__(self, save_file_name: str) -> None:
         task_list = []
-        # read from file to create Tasks objects that are inside of this instance of TaskCollection
+
         try:
+            # read from file to create Tasks objects that are inside of this instance of TaskCollection
             with open(save_file_name, "r") as task_file:
                 for line in task_file:
                     current_task = self.task_from_csv(line)
                     task_list.append(current_task)
-        # if a save file does not exist create one
         except FileNotFoundError:
+            # if a save file does not exist create one
             new_file = open(save_file_name, "x")
             new_file.close()
 

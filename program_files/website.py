@@ -94,6 +94,8 @@ def task_editor(post_dict):
     if request.method == "POST":
         form_data = request.form.to_dict()
         update_task(task_to_edit, form_data)
+        with open(REQUEST_HISTORY, "w") as request_file:
+            json.dump(form_data, request_file)
         return redirect("/")
 
     task_editor_template = MY_ENVIRONMENT.get_template(EDITOR_TEMPLATE)
