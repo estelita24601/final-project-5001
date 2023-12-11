@@ -74,7 +74,11 @@ class Task:
         Args:
             due_date (str): new date for Task object in ISO format ("YYY-MM-DD")
         """
-        self.date = date.fromisoformat(due_date)
+        if due_date in ("None",None,""):
+            self.remove_date()
+        else:
+            self.date = date.fromisoformat(due_date)
+
 
     def remove_date(self) -> None:
         """reset self.date to be None"""
