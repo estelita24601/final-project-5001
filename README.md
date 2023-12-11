@@ -39,6 +39,8 @@ In addition to creating, editing, and deleting tasks, the website also saves wha
 
 * click the "save changes" button to finish editing the task and be brought back to the main view with all tasks
 
+NOTE: please click at a normal speed, I haven't been able to fix a bug that occurs with rapid consecutive clicks on the same button/checkbox.
+
 ## Installation Instructions
 
 * download flask: ```pip install flask```
@@ -199,7 +201,9 @@ def task_editor(post_dict):
 
 * The first major hurdle was figuring out what a post request was and how to handle them. At first, I could only send a post request if the user hit a submit button after every change, and it would send information about every single input element on the page which was harder to process. When I started to better understand how `<input>` and `<form>` worked I was able to set up my HTML page to send smaller and easier to understand post requests whenever the user interacted with the website.
 
-* The hardest bug to figure out was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use JavaScript to override Flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a JSON file to save the most recent post request so it could be compared to the next post request sent. 
+* The hardest bug to figure out was the website crashing or malfunctioning whenever the user refreshed the page. I realized the website was sending the previous post request a second time whenever refreshing, and it seemed the conventional fix was to use JavaScript to override Flask's default behavior. Then I realized instead of preventing duplicate requests from being made I could have my program just ignore those duplicate requests. I used a JSON file to save the most recent post request so it could be compared to the next post request sent.
+
+* I still haven't been able to figure out the rapid clicking bug. My suspicion is that clicking too quickly interrupts the program writing to the CSV or JSON which then causes confusion. I only discovered it recently since the speed of clicking needed to cause a problem doesn't happen naturally.
 
 ### Example Run
 
