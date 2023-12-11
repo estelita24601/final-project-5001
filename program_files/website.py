@@ -26,16 +26,14 @@ def home():
         # load the previous request from JSON file
         with open(REQUEST_HISTORY, "r") as request_file:
             previous_request = json.load(request_file)
-        
+
         # if this is a new request the update JSON file and process the request
         if form_data != previous_request:
             # update the previous request
             with open(REQUEST_HISTORY, "w") as request_file:
                 json.dump(form_data, request_file)
-                
-            user_action = process_post_request(
-                form_data, MASTER_TASK_LIST, SAVE_FILE
-            )
+
+            user_action = process_post_request(form_data, MASTER_TASK_LIST, SAVE_FILE)
             if user_action == "edit":
                 return redirect(url_for("task_editor", post_dict=form_data))
 
@@ -57,7 +55,7 @@ def process_post_request(post_dict, collection_of_tasks: TaskCollection, csv_fil
     Returns:
         _type_: _description_
     """
-    
+
     for key, action in post_dict.items():
         # post_dict for new tasks has different format so check for that
         if key in ("new_name", "new_date"):
