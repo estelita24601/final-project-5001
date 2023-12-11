@@ -222,7 +222,8 @@ How did you test your code? What did you do to make sure your code was correct? 
 * Testing flask was harder but I ended up using a lot of print statements that would show up on the command line and were very helpful for debugging.
 
 * To test my html input elements and post requests I created a temporary webpage that all forms would redirect to that displayed the post request. This also helped me figure out the best format for the data I sent in my post requests. I would also keep my CSV file open to the side to make sure it was being edited correctly. As the website progressed I had to get rid of the temporary webpage and switch to more print statements.
-  
+  ![]![image](https://github.com/estelita24601/final-project-5001/assets/24834264/30237ee8-6772-4290-85ad-a843001603c7)
+
   ![](https://cdn.discordapp.com/attachments/778320935488716851/1180713497219305472/image.png)
 
 * When testing interaction with the website I would 
