@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>edit</title>
+<title>edit</title>
 {% endblock %}
 
 {% block body %}
-
-    <h1>Edit Task</h1>
+<div class="container py-4">
+    <h1 class="mb-4">Edit Task</h1>
     <form action="#" method="post">
         {% set original_name = task.get_name()%}
         {% set original_date = task.get_date() %}
-        
-        <input type="text" name="update_name" value="{{original_name}}"/>
-        <input type="date" name="update_date" value="{{original_date}}"/>
-        <input type="submit" value="save changes"/>
+
+        <input class="form-control mb-2" type="text" name="update_name" value="{{original_name}}" />
+        <input class="form-control mb-2" type="date" name="update_date" value="{{original_date}}" />
+        <div class="mt-4">
+            <input class="me-2 btn btn-warning" type="submit" name="action" value="cancel" />
+            <input class="me-2 btn btn-success" type="submit" name="action" value="save" />
+        </div>
     </form>
+</div>
 
 {% endblock %}
-
