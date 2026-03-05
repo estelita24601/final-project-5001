@@ -1,7 +1,8 @@
 import json
 from flask import Flask, request, redirect, url_for
 from jinja2 import Environment, FileSystemLoader
-from task import Task, TaskCollection
+from task import Task
+from task_collection import TaskCollection
 
 app = Flask(__name__)
 
