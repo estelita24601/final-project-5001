@@ -15,16 +15,16 @@
 * [ ] add optional labels/tags for tasks
 
 * [x] add optional due date parameter for tasks
-  
+
   **Sorting Tasks**
-  
+
   * [ ] arrange task list so completed items are on the bottom
   * [ ] alphabetically by task name
   * [ ] by due date
   * [ ] by tag
-  
+
   **Advanced Sorting**
-  
+
   * [ ] whenever sorting by date or tag also sort alphabetically
   * [ ] whenever sorting by date also group by tag in alphabetical order
   * [ ] whenever sorting by tag also sort by order of date in alphabetical order
@@ -44,7 +44,9 @@
 * [ ] select multiple tasks to give them all the same tag or remove same tag
 
 * [ ] select multiple tasks to give them all the same due date
-- [ ] maybe replace csv with json?
+
+* [ ] maybe replace csv with json?
+
 * [ ] replace save file with a data base (<https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/>)
 
 * [ ] Option to only show tasks with a certain tag (either with filter button or separate tab or something else)
@@ -69,28 +71,28 @@
 * **alphabetic_sort**(list of Task objects) -> list of Task objects
 
 * **date_sort**(list of Task objects) -> list of Task objects
-  
+
   * first compare year
   * then compare month within the same year
   * then compare day within the same month
 
 * **tag_sort**(list of Task objects) -> list of Task objects
-  
+
   * maybe use global variable that is a list of the tags in alphabetic order?
   * advanced version of this function will call **date_sort()** on each separate tag, and then call **alphabetic _sort()** on each separate date
 
 * **completion_sort**(list of Task objects) -> ??????
-  
+
   * either put the completed items at the end OR return two lists, one for complete items and another for incomplete
   * will depend on how other files handle Tasks
 
 * **sub_list_merger**(list of lists or a tuple of lists) -> one list of Task objects
-  
+
   * Ex. one sublist for tasks in November, and another sublist for tasks in December. Return one combined list made of the two lists in correct order (november list first then december list)
   * make it general enough so it works on more than just months/days
 
 * sub_list_creator() ???
-  
+
   * helper function that splits a list into sublists, one sublist for each value of the given attribute. ex one list for all items with date = [11, 3, 2023], and another for all items with date = [11, 5, 2023]
   * but somehow general enough to be able to use in multiple sorting functions
 
@@ -107,3 +109,6 @@ advanced sorting:
 Overall sorting:
 
 * create new list with items in new order to replace old list or is that too expensive?
+
+.idea/*
+*/bootstrap-5.3.3-dist/*
