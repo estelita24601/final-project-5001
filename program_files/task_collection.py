@@ -6,6 +6,7 @@ class TaskCollection:
 
     def __init__(self, save_file_name: str) -> None:
         task_list = []
+
         # read from file to create Tasks objects that are inside of this instance of TaskCollection
         try:
             with open(save_file_name, "r") as task_file:
@@ -17,6 +18,7 @@ class TaskCollection:
             new_file.close()
 
         self.task_dictionary = self.create_obj_dict(task_list)
+
         # update the save file so the unique id numbers of the objects are updated
         self.update_csv(save_file_name)
 
@@ -81,12 +83,35 @@ class TaskCollection:
 
         return task_dict
 
-    def get_task_dictionary(self) -> dict:
-        """
+    def get_tasks_for_render(self, sort_by=None, descending=False):
+        """_summary_
+
         Returns:
-            self.task_dictionary: task id number (int) for the keys and instance of Task class for values
+            list of tuples (task_id, Task_Object)
         """
-        return self.task_dictionary
+
+        tasks = []
+
+        for task_id, task_obj in self.task_dictionary.items():
+            tasks.append((task_id, task_obj))
+
+        # debug only
+        print(f"get_tasks_for_render()")
+        print(
+            f"({tasks[0][0]}: {type(tasks[0][0])}, {tasks[0][1]}: {type(tasks[0][1])})")
+
+        match sort_by:
+            case "name":
+                tasks.sort(key=lambda task_obj: task_obj[1].get_name(),
+                           reverse=descending)
+            case "completion_status":
+                tasks.sort(
+                    key=lambda task_obj: task_obj[1].get_completion_status(), reverse=descending)
+            case "date":
+                tasks.sort(key=lambda task_obj: task_obj[1].get_date(),
+                           reverse=descending)
+
+        return tasks
 
     def delete_task(self, task_id: int) -> None:
         """removes Task that is associated with task_id (int)"""
