@@ -4,7 +4,7 @@
 <div class="container py-4">
     <h1 class="text-center mb-4">To-Do List</h1>
 
-    <!-- create new task -->
+    <!-- create new task section -->
     <form action="" method="post" name="new task" class="mb-4">
         <div class="mb-2">
             <input class="form-control" type="text" name="new_name" placeholder="Enter name of task here" />
@@ -19,6 +19,20 @@
 
     <hr class="my-4">
 
+    <div class="dropdown pb-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By...
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Completion</a>
+            <a class="dropdown-item" href="#">Name</a>
+            <a class="dropdown-item" href="#">Due Date</a>
+        </div>
+    </div>
+
+
+    <!-- list of tasks section -->
     <table class="table table-bordered table-striped">
         <!-- create columns headers -->
         <thead class="table-light">
@@ -54,12 +68,20 @@
 
                 <!-- Task Name-->
                 <td class="align-middle">
+                    {% if check_status == true %}
+                    <p class="mt-2 form-check-label" style="color:gray; font-style: italic">{{name_value}}</p>
+                    {% else %}
                     <p class="mt-2 form-check-label">{{name_value}}</p>
+                    {% endif %}
                 </td>
 
                 <!-- Date -->
                 <td class="align-middle">
+                    {% if check_status == true %}
+                    <p class="mt-2 text-center" style="color:gray; font-style: italic">{{date}}</p>
+                    {% else %}
                     <p class="mt-2 text-center">{{date}}</p>
+                    {% endif %}
                 </td>
 
                 <!-- edit and delete buttons-->
