@@ -5,7 +5,7 @@
     <h1 class="text-center mb-4">To-Do List</h1>
 
     <!-- create new task section -->
-    <form action="" method="post" name="new task" class="mb-4">
+    <form action="/" method="post" name="new task" class="mb-4">
         <div class="mb-2">
             <input class="form-control" type="text" name="new_name" placeholder="Enter name of task here" />
         </div>
@@ -25,9 +25,9 @@
             Sort By...
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Completion</a>
-            <a class="dropdown-item" href="#">Name</a>
-            <a class="dropdown-item" href="#">Due Date</a>
+            <a class="dropdown-item" href="{{ url_for('sort_tasks', sort_by='completion_status') }}">Completion</a>
+            <a class="dropdown-item" href="{{ url_for('sort_tasks', sort_by='name') }}">Name</a>
+            <a class="dropdown-item" href="{{ url_for('sort_tasks', sort_by='date') }}">Due Date</a>
         </div>
     </div>
 
@@ -46,9 +46,7 @@
 
         <!-- loop through all tasks to create table body -->
         <tbody>
-            {% for task_id in task_data %}
-            <!-- use the dictionary entry to get info on each task object-->
-            {% set task_obj = task_data[task_id] %}
+            {% for task_id, task_obj in task_data %}
             {% set name_value = task_obj.get_name() %}
             {% set check_status = task_obj.get_completion_status() %}
             {% set date = task_obj.get_display_date() %}
@@ -56,7 +54,7 @@
             <tr>
                 <!-- checkbox-->
                 <td class="text-center align-middle">
-                    <form action="" method="post" name="checkbox" onclick="submit();">
+                    <form action="/" method="post" name="checkbox" onclick="submit();">
                         {% if check_status == true %}
                         <input class="form-check-input" type="checkbox" name="{{task_id}}" value="True" checked />
                         {% else %}
@@ -86,10 +84,10 @@
 
                 <!-- edit and delete buttons-->
                 <td class="text-center align-middle">
-                    <form action="" method="post" name="edit task" class="d-inline">
+                    <form action="/" method="post" name="edit task" class="d-inline">
                         <input class="me-1 btn btn-primary btn-sm" type="submit" name="{{task_id}}" value="edit" />
                     </form>
-                    <form action="" method="post" name="delete task" class="d-inline">
+                    <form action="/" method="post" name="delete task" class="d-inline">
                         <input class="ms-1 btn btn-danger btn-sm" type="submit" name="{{task_id}}" value="delete" />
                     </form>
                 </td>

@@ -8,11 +8,13 @@ app = Flask(__name__)
 
 REQUEST_HISTORY = "request_history.json"
 SAVE_FILE = "save_file.csv"
+
 # read task names from file into our TaskCollection object. make it only once for entire program to use
 MASTER_TASK_LIST = TaskCollection(SAVE_FILE)
 
 # set up so templates from folder can be used
 MY_ENVIRONMENT = Environment(loader=FileSystemLoader("templates/"))
+MY_ENVIRONMENT.globals['url_for'] = url_for
 HOME_TEMPLATE = "home_page.html"
 EDITOR_TEMPLATE = "edit_task.html"
 
@@ -44,8 +46,7 @@ def home():
 
     # render the template with the task info from the file
     task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
-    task_dictionary = MASTER_TASK_LIST.get_task_dictionary()
-    return task_list_template.render(task_data=task_dictionary)
+    return task_list_template.render(task_data=MASTER_TASK_LIST.get_tasks_for_render())
 
 
 # helper for home()
@@ -114,3 +115,9 @@ def update_task(task_obj, changes: dict):
         task_obj.change_date(new_date)
 
     MASTER_TASK_LIST.update_csv(SAVE_FILE)
+
+
+@app.route('/sort/<sort_by>')
+def sort_tasks(sort_by: str, descending=False):
+    task_list_template = MY_ENVIRONMENT.get_template(HOME_TEMPLATE)
+    return task_list_template.render(task_data=MASTER_TASK_LIST.get_tasks_for_render(sort_by, descending))
